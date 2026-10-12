@@ -18,7 +18,7 @@
     {
       "name": "devloop",
       "source": "./plugins/devloop",
-      "description": "Plan-to-PR development loop: frozen requirements from a wide-to-narrow interview, a 10-line plan, a branch from main, API-first changes with tests, a test gate on every commit, PRs of at most 10 files and 500 lines (stacked when larger), concise current-state code docs, a README check before push, and a pushed branch with a PR"
+      "description": "Plan-to-PR development loop: frozen requirements from a wide-to-narrow interview, a 10-line plan, a branch from main, API-first changes with tests, a test gate on every commit, PRs sliced vertically to at most 10 files and 500 lines (stacked when larger), concise current-state code docs, a README check before push, and a pushed branch with a PR"
     },
     {
       "name": "create-skill",

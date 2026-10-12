@@ -32,8 +32,9 @@ anything yet. Find the test command and whether a pre-commit hook runs tests
   same rules. Keep the top level as it is.
 - If the work needs more than 10 top-level lines, it is more than one change: plan the first slice
   and list the rest as follow-ups.
-- Estimate the size. If it will exceed the budget in step 7, decide the slices now, along plan
-  lines.
+- Group the plan lines into PR slices with the `slice` skill bundled with this plugin
+  (`/devloop:slice`): vertical slices that each deliver requirements end to end, a walking
+  skeleton first for new surfaces, riskiest first. Show the plan and the slice map together.
 
 ## 4. Branch and baseline
 
@@ -73,7 +74,7 @@ commit builds and passes tests.
 
   Lockfiles, generated code and snapshots don't count toward the budget (extend the excludes for
   the repo's generated paths), but list them in the PR.
-  If a slice goes over, split it further rather than raising the budget.
+  If a slice goes over, split it further with `/devloop:slice` rather than raising the budget.
 
 ## 8. Self-review
 
@@ -88,21 +89,30 @@ debug leftovers, a requirement without a test, contract changes the user hasn't 
    and sample output against the diff and fixes only what this branch made stale, in its own commit
    (which counts toward the size budget). Include its result in the PR body.
 2. `git push -u origin <branch>`
-3. `gh pr create --base <base> --title "<summary>" --body "<requirements covered, plan, tests run, size, README check>"`, following the
-   repo's PR template if there is one.
+3. Open it as a draft: `gh pr create --draft --base <base> --title "<summary>" --body-file <file>`.
+   Use the repo's PR template if there is one; otherwise:
 
-**Stacked PRs** when the change is more than one slice:
+   ```markdown
+   ## What and why
+   <one short paragraph>
 
-- Slice 1 branches from `origin/main` and targets `main`. Each next slice branches from the
-  previous slice's branch and targets it (`--base <previous branch>`).
-- Each slice passes the gates on its own. Note in each PR body its position ("2/3, depends on #12").
-- When a lower slice merges, rebase the next onto main and retarget it:
+   ## Requirements
+   FR-1, FR-2 (spec: docs/specs/<slug>.md, rev <n>)
 
-  ```sh
-  git rebase --onto origin/main <merged-branch> <next-branch>
-  git push --force-with-lease
-  gh pr edit <next-pr> --base main
-  ```
+   ## How to verify
+   <commands or steps a reviewer can run>
+
+   ## Risk and rollback
+   <what could break and how to revert>
+
+   ## Checks
+   Tests: <command>, passing · Size: <files> files, <lines> lines · README check: <result>
+   Slice <n>/<m>, depends on #<pr>   (omit for a single PR)
+   ```
+
+4. When CI passes (`gh pr checks --watch`), mark it ready: `gh pr ready`.
+
+Multi-slice changes run as a stack; branching, restacking and retargeting are in `/devloop:slice`.
 
 ## 10. Report
 
