@@ -10,6 +10,7 @@ claude plugin install reflect@ankurjain-skills
 claude plugin install readme-check@ankurjain-skills
 claude plugin install update-stack@ankurjain-skills
 claude plugin install devloop@ankurjain-skills
+claude plugin install create-skill@ankurjain-skills
 ```
 
 Or inside a session: `/plugin marketplace add ankurjain-nitrr/skills`, then `/plugin install <plugin>@ankurjain-skills`.
@@ -21,7 +22,7 @@ To have a project offer these to everyone who opens it, add to its `.claude/sett
   "extraKnownMarketplaces": {
     "ankurjain-skills": { "source": { "source": "github", "repo": "ankurjain-nitrr/skills" } }
   },
-  "enabledPlugins": { "reflect@ankurjain-skills": true, "readme-check@ankurjain-skills": true, "update-stack@ankurjain-skills": true, "devloop@ankurjain-skills": true }
+  "enabledPlugins": { "reflect@ankurjain-skills": true, "readme-check@ankurjain-skills": true, "update-stack@ankurjain-skills": true, "devloop@ankurjain-skills": true, "create-skill@ankurjain-skills": true }
 }
 ```
 
@@ -33,6 +34,7 @@ To have a project offer these to everyone who opens it, add to its `.claude/sett
 | `readme-check` | `/readme-check:readme-check` | Pre-push README gate: checks the README's versions, requirements, commands, API names, defaults and sample output against the commits about to be pushed, fixes only what they made stale with minimal edits, and reports what changed or that nothing needed to. Add one line to a project's `CLAUDE.md` to run it before every push. |
 | `update-stack` | `/update-stack:update-stack` | Updates every pinned version in a repo (dependencies, build plugins, wrappers, CI actions, container images, language runtime) to its latest stable release: inventories pins by scanning instead of a fixed list, checks registries for the latest stable, does major bumps one at a time after reading release notes, keeps each version identical everywhere, verifies build, tests and images, and commits by area. A repo's own update skill or `CLAUDE.md` overrides it. |
 | `devloop` | `/devloop:devloop` | Plan-to-PR loop: read-only explore, a plan of at most 10 abstraction-level lines iterated with you ("go deeper" expands one line the same way), a branch from latest `origin/main`, baseline tests, API-first change with failing tests first (pauses for approval on public contract changes), tests on every commit via hook or directly, PRs capped at 10 files and 500 lines (stacked when larger), self-review, `readme-check`, push and `gh pr create`. |
+| `create-skill` | `/create-skill:create-skill` | Creates or improves a skill: dedups against installed and popular skills, picks the cheapest home (skill, `CLAUDE.md` line, hook) and scope (project, personal, plugin), writes to the official authoring rules, tests with and without the skill plus near-miss prompts in fresh subagents, reviews against a checklist, and packages for this marketplace. |
 
 ## Layout
 
