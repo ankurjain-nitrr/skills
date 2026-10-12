@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: End-of-session retrospective that captures what this session learned so future sessions spend fewer tokens. Finds corrections, wrong assumptions, failed attempts, repeated lookups and decisions in the current conversation, routes each to the cheapest place that will prevent the waste (project CLAUDE.md, path-scoped rule, user CLAUDE.md, skill, hook), prunes stale entries, and applies the changes the user approves. Use when the user runs /reflect, asks to reflect, do a retro or retrospective, capture or save learnings, "remember this for next time", update CLAUDE.md from this session, or wrap up a long session, even if they don't say "reflect".
+description: Session retrospective that cuts future token use. Finds this session's corrections, failed attempts, repeated lookups and decisions, saves each to the cheapest place (project CLAUDE.md, path-scoped rule, user CLAUDE.md, skill, hook) and prunes stale entries. Use for /reflect, retros, "save learnings", "remember this next time", or wrapping up a long session.
 ---
 
 # Reflect
