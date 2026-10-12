@@ -115,8 +115,8 @@ debug leftovers, a requirement without a test, contract changes the user hasn't 
 ## 10. Fresh-session review
 
 Run the `fresh-review` skill bundled with this plugin (`/devloop:fresh-review`): a reviewable title
-and description, a code review in a new session (never this one), and every finding fixed or
-answered. Don't create the next slice's PR until then.
+and description, a review by the repo's CI reviewer or Anthropic's `code-review` plugin (fresh-context
+reviewers, given only the PR URL), and every finding fixed or answered. Don't create the next slice's PR until then.
 
 Multi-slice changes run as a stack, one slice at a time through steps 6-10; branching, restacking
 and retargeting are in `/devloop:slice`.
