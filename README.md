@@ -7,9 +7,10 @@ Claude Code skills, published as a plugin marketplace.
 ```bash
 claude plugin marketplace add ankurjain-nitrr/skills
 claude plugin install reflect@ankurjain-skills
+claude plugin install readme-check@ankurjain-skills
 ```
 
-Or inside a session: `/plugin marketplace add ankurjain-nitrr/skills`, then `/plugin install reflect@ankurjain-skills`.
+Or inside a session: `/plugin marketplace add ankurjain-nitrr/skills`, then `/plugin install <plugin>@ankurjain-skills`.
 
 To have a project offer these to everyone who opens it, add to its `.claude/settings.json`:
 
@@ -18,7 +19,7 @@ To have a project offer these to everyone who opens it, add to its `.claude/sett
   "extraKnownMarketplaces": {
     "ankurjain-skills": { "source": { "source": "github", "repo": "ankurjain-nitrr/skills" } }
   },
-  "enabledPlugins": { "reflect@ankurjain-skills": true }
+  "enabledPlugins": { "reflect@ankurjain-skills": true, "readme-check@ankurjain-skills": true }
 }
 ```
 
@@ -27,6 +28,7 @@ To have a project offer these to everyone who opens it, add to its `.claude/sett
 | Plugin | Skill | What it does |
 |---|---|---|
 | `reflect` | `/reflect:reflect` | End-of-session retrospective: finds the session's corrections, dead ends and decisions, routes each to the cheapest place that prevents the waste next time (project `CLAUDE.md`, path-scoped rule, user `CLAUDE.md`, skill or hook), prunes stale entries, and applies what you approve. Goal: fewer tokens spent re-discovering the same things. |
+| `readme-check` | `/readme-check:readme-check` | Pre-push README gate: checks the README's versions, requirements, commands, API names, defaults and sample output against the commits about to be pushed, fixes only what they made stale with minimal edits, and reports what changed or that nothing needed to. Add one line to a project's `CLAUDE.md` to run it before every push. |
 
 ## Layout
 
