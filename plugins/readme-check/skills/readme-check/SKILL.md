@@ -30,7 +30,9 @@ are the cheapest and most reliable findings.
 
 ## 3. Check the README's claims against the code
 
-Go through the README sections the changes touch and verify each claim against the files:
+Go through the README sections the changes touch and verify each claim against the files: If the project's
+`CLAUDE.md` lists README claims to keep true (e.g. "the Setup snippet matches the build file"), check
+those first.
 
 - Install and setup snippets match the build files' versions and coordinates.
 - Stated requirements match the toolchain, CI and container images.

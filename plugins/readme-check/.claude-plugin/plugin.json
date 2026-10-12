@@ -1,7 +1,7 @@
 {
   "name": "readme-check",
   "description": "Pre-push README gate: checks the README against the commits about to be pushed and fixes what they made stale, with minimal edits",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Ankur Jain"
   },
