@@ -14,6 +14,11 @@
       "name": "readme-check",
       "source": "./plugins/readme-check",
       "description": "Pre-push README gate: checks the README against the commits about to be pushed and fixes what they made stale, with minimal edits"
+    },
+    {
+      "name": "update-stack",
+      "source": "./plugins/update-stack",
+      "description": "Update every pinned version in a repo (dependencies, build plugins, wrappers, CI actions, container images, language runtime) to its latest stable release, keep each consistent everywhere it appears, and verify nothing broke"
     }
   ]
 }

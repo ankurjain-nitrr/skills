@@ -1,0 +1,9 @@
+{
+  "name": "update-stack",
+  "description": "Update every pinned version in a repo (dependencies, build plugins, wrappers, CI actions, container images, language runtime) to its latest stable release, keep each consistent everywhere it appears, and verify nothing broke",
+  "version": "0.1.0",
+  "author": {
+    "name": "Ankur Jain"
+  },
+  "repository": "https://github.com/ankurjain-nitrr/skills"
+}
