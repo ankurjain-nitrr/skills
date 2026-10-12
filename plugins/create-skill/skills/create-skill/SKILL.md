@@ -49,7 +49,7 @@ everything the model already got right stays out.
 - **Size:** keep `SKILL.md` well under 500 lines. Move reference material to files linked directly
   from `SKILL.md` (one level deep), with a table of contents if over 100 lines. Bundle a script for
   deterministic or repeated work, and say whether to run it or read it.
-- **Cross-references:** refer to other skills by name and plugin (`readme-check@<marketplace>`),
+- **Cross-references:** refer to other skills by name and plugin (`/devloop:readme-check` from `devloop@<marketplace>`),
   say what they do, and say what to do if they aren't installed. Don't `@`-include files.
 - **Respect the host repo:** say that the repo's `CLAUDE.md` or own skills override this one.
 

@@ -87,6 +87,6 @@ asking.
   container images, docs.
 - Each commit should build; when a change has to span areas (e.g. the runtime version in build
   files and CI), keep it in one commit.
-- Don't push unless the user asks. If the readme-check skill is installed, run it before pushing.
+- Don't push unless the user asks. If the devloop plugin is installed, run its `/devloop:readme-check` skill before pushing.
 - Finish with a table of old and new versions, what was skipped and why, and the verification
   results.

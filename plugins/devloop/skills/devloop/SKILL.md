@@ -69,11 +69,10 @@ tests for a plan line, contract changes the user hasn't approved. Fix before pus
 
 ## 8. Push and open the PR
 
-1. Run the `readme-check` skill (`readme-check@ankurjain-skills`, same marketplace) against the
+1. Run the `readme-check` skill bundled with this plugin (`/devloop:readme-check`) against the
    branch's commits: it checks the README's versions, requirements, commands, API names, defaults
    and sample output against the diff and fixes only what this branch made stale, in its own commit
-   (which counts toward the size budget). If it isn't installed, do that check by hand and suggest
-   `claude plugin install readme-check@ankurjain-skills`. Include its result in the PR body.
+   (which counts toward the size budget). Include its result in the PR body.
 2. `git push -u origin <branch>`
 3. `gh pr create --base <base> --title "<summary>" --body "<plan, tests run, size>"`, following the
    repo's PR template if there is one.

@@ -62,8 +62,9 @@ it.
 
 ## Making it automatic
 
-Skills load on demand. To run this before every push in a project, add to its `CLAUDE.md`:
+This skill ships with the devloop plugin, which runs it before every push. Outside devloop, skills
+load on demand; to run this before every push in a project, add to its `CLAUDE.md`:
 
 ```markdown
-Before every `git push`, run the readme-check skill and include its result in the report.
+Before every `git push`, run the `/devloop:readme-check` skill and include its result in the report.
 ```
