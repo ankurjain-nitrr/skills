@@ -45,7 +45,8 @@ of raising the budget.
 ## 4. Run the stack
 
 - Slice 1 branches from `origin/main` and targets `main`; each next slice branches from the one
-  below and targets it (`gh pr create --base <branch below>`). Each passes the gates on its own.
+  below and targets it (`gh pr create --base <branch below>`). Each passes the gates on its own,
+  and its fresh-session review (`/devloop:fresh-review`) is resolved before the next PR opens.
 - If `gh stack` is installed, use it (`gh stack submit`, `gh stack sync`). Otherwise use Git 2.38+:
 
   ```sh

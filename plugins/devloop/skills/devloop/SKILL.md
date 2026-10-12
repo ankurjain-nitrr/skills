@@ -112,9 +112,17 @@ debug leftovers, a requirement without a test, contract changes the user hasn't 
 
 4. When CI passes (`gh pr checks --watch`), mark it ready: `gh pr ready`.
 
-Multi-slice changes run as a stack; branching, restacking and retargeting are in `/devloop:slice`.
+## 10. Fresh-session review
 
-## 10. Report
+Run the `fresh-review` skill bundled with this plugin (`/devloop:fresh-review`): a reviewable title
+and description, a code review in a new session (never this one), and every finding fixed or
+answered. Don't create the next slice's PR until then.
 
-Requirements covered (and any deltas approved after the freeze), plan lines done, tests run and results, the readme-check result, size per PR against the budget,
+Multi-slice changes run as a stack, one slice at a time through steps 6-10; branching, restacking
+and retargeting are in `/devloop:slice`.
+
+## 11. Report
+
+Requirements covered (and any deltas approved after the freeze), plan lines done, tests run and results,
+the review outcome per PR, the readme-check result, size per PR against the budget,
 and PR links. Mention anything skipped and why.
