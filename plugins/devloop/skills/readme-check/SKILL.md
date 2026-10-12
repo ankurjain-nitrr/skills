@@ -11,7 +11,7 @@ scoped to the outgoing commits, not a README rewrite: fix what they made stale, 
 ## 1. Scope the push
 
 - Base: the upstream (`git rev-parse @{u}`); with no upstream, the merge-base with the default branch
-  (`git merge-base HEAD origin/HEAD`).
+  (`git merge-base HEAD origin/HEAD`; if `origin/HEAD` is unset, run `git remote set-head origin -a`).
 - Read `git log --oneline <base>..HEAD` and `git diff <base>..HEAD`. If there is nothing to push, stop.
 - Uncommitted changes are not part of the push. Mention them, don't vet them.
 - READMEs in scope: the root `README*`, plus any `README*` in a directory the diff touches.
@@ -30,9 +30,9 @@ are the cheapest and most reliable findings.
 
 ## 3. Check the README's claims against the code
 
-Go through the README sections the changes touch and verify each claim against the files: If the project's
-`CLAUDE.md` lists README claims to keep true (e.g. "the Setup snippet matches the build file"), check
-those first.
+Go through the README sections the changes touch and verify each claim against the files. If the
+project's `CLAUDE.md` lists README claims to keep true (e.g. "the Setup snippet matches the build
+file"), check those first.
 
 - Install and setup snippets match the build files' versions and coordinates.
 - Stated requirements match the toolchain, CI and container images.
@@ -60,11 +60,5 @@ Say either what you changed and why, or "README checked against <n> commits; no 
 plus any pre-existing staleness you noticed. Then continue with the push only if the user asked for
 it.
 
-## Making it automatic
-
-This skill ships with the devloop plugin, which runs it before every push. Outside devloop, skills
-load on demand; to run this before every push in a project, add to its `CLAUDE.md`:
-
-```markdown
-Before every `git push`, run the `/devloop:readme-check` skill and include its result in the report.
-```
+`devloop` runs this before every push. Outside devloop, a project can add to its `CLAUDE.md`:
+"Before every `git push`, run `/devloop:readme-check`."

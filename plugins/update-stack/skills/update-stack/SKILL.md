@@ -1,6 +1,6 @@
 ---
 name: update-stack
-description: Update every pinned version in a repo to its latest stable release (dependencies, build plugins, build-tool wrappers, CI actions, container base images, language runtime), keep each version identical everywhere it appears, and verify build, tests and images still work. Use for "update the stack", "bump dependencies", "upgrade versions" or "check for outdated versions".
+description: Updates every pinned version in a repo to its latest stable release (dependencies, build plugins, build-tool wrappers, CI actions, container base images, language runtime) and verifies the build, tests and images still work. Use for "update the stack", "bump dependencies", "upgrade versions" or "check for outdated versions".
 ---
 
 # Update the stack
@@ -87,6 +87,8 @@ asking.
   container images, docs.
 - Each commit should build; when a change has to span areas (e.g. the runtime version in build
   files and CI), keep it in one commit.
-- Don't push unless the user asks. If the devloop plugin is installed, run its `/devloop:readme-check` skill before pushing.
+- Don't push unless the user asks. If the devloop plugin is installed, work on a branch and ship
+  through `/devloop:devloop` (its size budget and PR flow apply); at minimum run
+  `/devloop:readme-check` before pushing.
 - Finish with a table of old and new versions, what was skipped and why, and the verification
   results.

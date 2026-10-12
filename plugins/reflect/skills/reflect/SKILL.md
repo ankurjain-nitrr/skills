@@ -51,7 +51,7 @@ Notes that matter:
 - If the session uses an auto memory directory, don't duplicate entries there. Prefer CLAUDE.md for project facts
   and remove a memory entry you promote into CLAUDE.md.
 - New skills, hooks and rule files are bigger changes. Propose them with a one-line rationale and create them only
-  if the user approves.
+  if the user approves. Write or update a skill with `/create-skill:create-skill` if that plugin is installed.
 
 ## 3. Write entries that are cheap to carry
 

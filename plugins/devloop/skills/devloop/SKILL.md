@@ -1,12 +1,13 @@
 ---
 name: devloop
-description: Plan-to-PR development loop for a code change. Short abstraction-level plan (max 10 lines, iterated with the user), branch from latest main, baseline tests, API-first change with tests, tests on every commit, PRs capped at 10 files and 500 lines (stacked when larger), self-review, push and open the PR. Use for implementing a feature or fix end to end, "devloop", or "plan and ship this".
+description: Takes a code change from request to small, tested, reviewable pull requests on a new branch, with a short plan agreed with the user first. Use for implementing a feature, fix or refactor end to end, "devloop", "plan and ship this", or when a change should land as PRs of at most 10 files and 500 lines.
 ---
 
 # Devloop
 
 From request to reviewed PR in small, tested steps. If the repo's `CLAUDE.md` or its own skills
-say otherwise (branch names, test commands, PR template), follow them.
+say otherwise (branch names, test commands, PR template), follow them. `main` below means the
+default branch (`git symbolic-ref refs/remotes/origin/HEAD`; if unset, `git remote set-head origin -a`).
 
 ## 1. Explore
 
@@ -56,10 +57,11 @@ or logical step; every commit builds and passes tests.
 - **Size:** each PR changes at most **10 files and 500 lines** (additions plus deletions):
 
   ```sh
-  git diff --stat --numstat <base>...HEAD
+  git diff --numstat <base>...HEAD -- . ':(exclude)*.lock' ':(exclude)package-lock.json'
   ```
 
-  Lockfiles, generated code and snapshots don't count toward the budget, but list them in the PR.
+  Lockfiles, generated code and snapshots don't count toward the budget (extend the excludes for
+  the repo's generated paths), but list them in the PR.
   If a slice goes over, split it further rather than raising the budget.
 
 ## 7. Self-review
@@ -74,7 +76,7 @@ tests for a plan line, contract changes the user hasn't approved. Fix before pus
    and sample output against the diff and fixes only what this branch made stale, in its own commit
    (which counts toward the size budget). Include its result in the PR body.
 2. `git push -u origin <branch>`
-3. `gh pr create --base <base> --title "<summary>" --body "<plan, tests run, size>"`, following the
+3. `gh pr create --base <base> --title "<summary>" --body "<plan, tests run, size, README check>"`, following the
    repo's PR template if there is one.
 
 **Stacked PRs** when the change is more than one slice:
@@ -92,5 +94,5 @@ tests for a plan line, contract changes the user hasn't approved. Fix before pus
 
 ## 9. Report
 
-Plan lines done, tests run and results, the readme-check result, size per PR against the budget, and PR links. Mention
-anything skipped and why.
+Plan lines done, tests run and results, the readme-check result, size per PR against the budget,
+and PR links. Mention anything skipped and why.

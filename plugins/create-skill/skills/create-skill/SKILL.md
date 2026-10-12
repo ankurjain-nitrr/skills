@@ -1,6 +1,6 @@
 ---
 name: create-skill
-description: Creates a new agent skill (SKILL.md) or improves an existing one. Checks for duplicates, picks where it should live, writes it to the authoring rules, tests it with and without the skill, reviews it against a checklist and packages it for a plugin marketplace. Use for "create/write/make a skill", turning a workflow or session into a skill, or reviewing, auditing, trimming, generalizing or fixing a skill that triggers wrongly or gets ignored.
+description: Creates a new agent skill (SKILL.md) or improves an existing one so it triggers when it should, stays lean and works across repos. Use for "create/write/make a skill", turning a workflow or session into a skill, or reviewing, auditing, trimming, generalizing or fixing a skill that triggers wrongly or gets ignored.
 ---
 
 # Create or improve a skill
@@ -49,11 +49,15 @@ everything the model already got right stays out.
 - **Size:** keep `SKILL.md` well under 500 lines. Move reference material to files linked directly
   from `SKILL.md` (one level deep), with a table of contents if over 100 lines. Bundle a script for
   deterministic or repeated work, and say whether to run it or read it.
-- **Cross-references:** refer to other skills by name and plugin (`/devloop:readme-check` from `devloop@<marketplace>`),
-  say what they do, and say what to do if they aren't installed. Don't `@`-include files.
+- **Cross-references:** refer to other skills by name and plugin (`/devloop:readme-check` from
+  `devloop@<marketplace>`), say what they do, and say what to do if they aren't installed. Don't
+  `@`-include files.
 - **Respect the host repo:** say that the repo's `CLAUDE.md` or own skills override this one.
 
 ## 4. Test
+
+Scale the testing to the change: a new skill or a changed description or workflow gets the runs
+below; a wording fix or typo needs only a re-read against the checklist.
 
 - Run 2-3 realistic prompts in fresh subagents **with** the skill and compare against **without** it
   (or against the previous version when improving). Check that it triggers, that it follows the
