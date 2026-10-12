@@ -1,0 +1,9 @@
+{
+  "name": "reflect",
+  "description": "End-of-session retrospective that turns this session's corrections, dead ends and decisions into concise, correctly placed instructions so future sessions spend fewer tokens",
+  "version": "0.1.0",
+  "author": {
+    "name": "Ankur Jain"
+  },
+  "repository": "https://github.com/ankurjain-nitrr/skills"
+}

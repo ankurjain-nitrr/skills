@@ -1,0 +1,14 @@
+{
+  "name": "ankurjain-skills",
+  "description": "Claude Code skills by Ankur Jain",
+  "owner": {
+    "name": "Ankur Jain"
+  },
+  "plugins": [
+    {
+      "name": "reflect",
+      "source": "./plugins/reflect",
+      "description": "End-of-session retrospective that turns this session's corrections, dead ends and decisions into concise, correctly placed instructions so future sessions spend fewer tokens"
+    }
+  ]
+}
