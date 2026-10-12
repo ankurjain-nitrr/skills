@@ -19,6 +19,11 @@
       "name": "update-stack",
       "source": "./plugins/update-stack",
       "description": "Update every pinned version in a repo (dependencies, build plugins, wrappers, CI actions, container images, language runtime) to its latest stable release, keep each consistent everywhere it appears, and verify nothing broke"
+    },
+    {
+      "name": "devloop",
+      "source": "./plugins/devloop",
+      "description": "Plan-to-PR development loop: a 10-line plan, a branch from main, API-first changes with tests, a test gate on every commit, PRs of at most 10 files and 500 lines (stacked when larger), and a pushed branch with a PR"
     }
   ]
 }
