@@ -47,7 +47,8 @@ Run a documented command only when that is cheap and safe; otherwise check it by
 ## 4. Fix
 
 - Make the smallest edit that makes each claim true. Keep the README's voice, structure and
-  formatting; don't add sections, badges or marketing.
+  formatting; don't add sections, badges or marketing. State current behavior in the present tense;
+  no "now", "previously" or "changed to" (see `/devloop:code-docs`).
 - Staleness that predates this push: report it, don't fix it, unless the user asks.
 - If the right wording needs a decision only the user can make (e.g. a breaking change for
   consumers), ask instead of guessing.

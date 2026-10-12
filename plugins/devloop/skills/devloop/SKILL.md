@@ -47,8 +47,10 @@ already fails, stop and report; don't build on a red baseline.
 
 ## 5. Implement
 
-Write the smallest code that makes the tests pass, one plan line at a time. Commit per plan line
-or logical step; every commit builds and passes tests.
+Write the smallest code that makes the tests pass, one plan line at a time. Write comments and docs
+by the `code-docs` skill bundled with this plugin (`/devloop:code-docs`): current code only, no
+change history or narration, as short as possible. Commit per plan line or logical step; every
+commit builds and passes tests.
 
 ## 6. Gates (before every commit and push)
 
@@ -67,7 +69,8 @@ or logical step; every commit builds and passes tests.
 ## 7. Self-review
 
 Read the whole branch diff with fresh eyes: anything outside the plan, debug leftovers, missing
-tests for a plan line, contract changes the user hasn't approved. Fix before pushing.
+tests for a plan line, contract changes the user hasn't approved. Run the diff check from
+`/devloop:code-docs` and fix history, narration and redundant comments. Fix before pushing.
 
 ## 8. Push and open the PR
 
