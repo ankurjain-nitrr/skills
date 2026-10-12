@@ -3,12 +3,14 @@
 ## Need and placement
 - [ ] Does something the model doesn't already do well; gap observed, not imagined
 - [ ] No near-duplicate among installed or popular skills; distinct trigger
+- [ ] Added as a subskill of a related plugin when one exists; exactly one copy, all references updated
 - [ ] Right home: skill, not a `CLAUDE.md` line (always needed) or hook (no judgment)
 - [ ] Right scope (project, personal, plugin); shared process separate from repo specifics
 
 ## Frontmatter
 - [ ] `name` lowercase-hyphenated, at most 64 characters, matches directory, not vague, no "claude"/"anthropic"
 - [ ] `description` third person, what plus when, key use first, trigger phrases, no workflow summary
+- [ ] `description` names situations, so it fires on requests that don't use the skill's own words
 - [ ] `description` short (well under 1024 characters; listing truncates description + `when_to_use` at 1536)
 - [ ] Invocation fits: `disable-model-invocation: true` for side-effect actions only the user should start; `user-invocable: false` for background knowledge
 - [ ] Only portable fields if it must also run on claude.ai or the API
@@ -31,9 +33,11 @@
 ## Tested
 - [ ] Triggers on 2-3 realistic prompts, including ones that don't name the domain
 - [ ] Doesn't trigger on 2-3 near-misses
+- [ ] Neighboring skills' trigger prompts still go to them (`scripts/trigger-test.sh`)
 - [ ] Beats the baseline (no skill, or the previous version) on the observed gap
 - [ ] Transcripts read: ignored instructions clarified, unneeded work removed
 
 ## Shipped (plugin)
 - [ ] `plugin.json` version bumped; marketplace entry and README rows updated
 - [ ] `claude plugin validate` passes for the marketplace and the plugin
+- [ ] Local install refreshed (`claude plugin marketplace update`, `claude plugin update`)

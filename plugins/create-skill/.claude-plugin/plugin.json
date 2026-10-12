@@ -1,7 +1,7 @@
 {
   "name": "create-skill",
   "description": "Create a new agent skill or improve an existing one: dedup against existing skills, pick the right placement, write to the official authoring rules, test with and without the skill, review against a checklist, and package for a plugin marketplace",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "author": {
     "name": "Ankur Jain"
   },
