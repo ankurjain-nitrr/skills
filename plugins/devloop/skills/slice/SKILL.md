@@ -39,8 +39,9 @@ lands soon. Show the map with the plan and get it approved together:
 3/3  feat/export-filters   FR-3,FR-4  date and status filters, 400 on bad input ~4 files, ~200 lines
 ```
 
-Estimate each slice's files from the plan, and count again before every commit (step 7 in
-devloop). If a slice grows past the budget while you build it, split it again along the same lines instead
+Add the map to the change's `TRACKER.md` (`/devloop:project-docs`): a row per slice, parented to
+its requirements, with its estimated size. Estimate each slice's files from the plan, and count
+again before every commit (step 7 in devloop). If a slice grows past the budget while you build it, split it again along the same lines instead
 of raising the budget.
 
 ## 4. Run the stack

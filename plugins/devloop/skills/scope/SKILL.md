@@ -74,10 +74,10 @@ choice; split anything with "and". No open questions remain in a frozen spec.
 
 ## 5. Freeze
 
-Show the requirements and get explicit approval; revise until the user approves. Then mark it
-`Status: frozen (rev 1)`. Save it where the repo keeps specs, otherwise `docs/specs/<slug>.md`, as
-the first commit of the change's branch (or in the PR description if the user prefers no spec
-files).
+Write the requirements as the change request's PRD, `docs/changes/CR-<n>-<slug>/PRD.md` (see
+`/devloop:project-docs` for the layout and template), and have it reviewed through hoop; approval
+there is the freeze (`Status: approved`, revision 1). Commit it as the first commit of the change's
+branch. Without hoop (it's required), stop and ask the user to install it.
 
 ## 6. Change control after the freeze
 

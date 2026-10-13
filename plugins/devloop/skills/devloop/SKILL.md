@@ -23,8 +23,18 @@ anything yet. Find the test command and whether a pre-commit hook runs tests
 
 Preflight the environment now, not mid-slice: the runtime versions installed against what the
 project and its test tools need (a browser-test library may need a newer runtime than the app),
-browsers for UI tests, and the CLI tools scripts call (`gh`, `timeout`, `jq`). Note gaps and the
+browsers for UI tests, the CLI tools scripts call (`gh`, `timeout`, `jq`), and hoop's MCP tools
+(required for the design docs; if missing, ask the user to install hoop). Note gaps and the
 workaround (an alternate runtime path, a skipped test) before planning around them.
+
+## 2b. Design docs
+
+Using the `project-docs` skill bundled with this plugin (`/devloop:project-docs`):
+
+- If the project has no `docs/PRD.md`, `HLD.md`, `LLD.md` and `TRACKER.md`, bootstrap them first.
+- For a feature, or any change to an interface, data model or architecture, write the change's
+  `HLD.md` and `LLD.md` next to its PRD and have each approved through hoop before planning. A
+  small fix needs only its PRD and tracker rows.
 
 ## 3. Plan: at most 10 lines
 
@@ -37,6 +47,7 @@ workaround (an alternate runtime path, a skipped test) before planning around th
   same rules. Keep the top level as it is.
 - If the work needs more than 10 top-level lines, it is more than one change: plan the first slice
   and list the rest as follow-ups.
+- Write the plan lines into the change's `TRACKER.md` as task rows under their requirements.
 - Group the plan lines into PR slices with the `slice` skill bundled with this plugin
   (`/devloop:slice`): vertical slices that each deliver requirements end to end, a walking
   skeleton first for new surfaces, riskiest first, with each slice's estimated file count. Show the
@@ -52,8 +63,8 @@ git switch -c <type>/<slug> origin/main    # e.g. feat/cancel-unpaid-orders
 ```
 
 Never commit on `main`. Before every commit, check `git branch --show-current` is the slice's
-branch; in a stack it's easy to commit onto the slice below. Commit the frozen spec first if it is
-kept as a file. Run the full test suite on the new branch before changing anything. If it
+branch; in a stack it's easy to commit onto the slice below. The change's approved docs
+(`docs/changes/CR-<n>-<slug>/`) are the first commit; set its status to `implementing`. Run the full test suite on the new branch before changing anything. If it
 already fails, stop and report; don't build on a red baseline.
 
 ## 5. API first
@@ -70,7 +81,8 @@ already fails, stop and report; don't build on a red baseline.
 Write the smallest code that makes the tests pass, one plan line at a time. Write comments and docs
 by the `code-docs` skill bundled with this plugin (`/devloop:code-docs`): current code only, no
 change history or narration, as short as possible. Commit per plan line or logical step; every
-commit builds and passes tests. Write multi-line commit messages to a file and use `git commit -F`,
+commit builds and passes tests. Each slice's PR updates its rows in the change's `TRACKER.md`
+(status, PR, dates); any change to the change's PRD, HLD or LLD goes through hoop first. Write multi-line commit messages to a file and use `git commit -F`,
 which avoids shell-quoting mistakes. After each slice, give the user a one-line status (slice n/m,
 tests, what's next): they can't see the work between messages.
 
@@ -118,7 +130,7 @@ debug leftovers, a requirement without a test, contract changes the user hasn't 
    <one short paragraph>
 
    ## Requirements
-   FR-1, FR-2 (spec: docs/specs/<slug>.md, rev <n>)
+   FR-1, FR-2 (docs/changes/CR-<n>-<slug>/, PRD rev <n>)
 
    ## How to verify
    <commands or steps a reviewer can run>
@@ -162,9 +174,11 @@ fixes. Unit tests passing is not acceptance.
 2. Check `main` matches the reviewed top branch (`git diff --quiet <top> main`) and its tests pass.
    Delete the merged branches, locally and on the remote.
 3. Tag a release if the project versions them and the user agrees.
-4. Run the `reflect` skill if installed: decisions, the why behind them, and gotchas from this
+4. Fold the change's docs into the project docs in their own PR, reviewed through hoop as a diff
+   (`/devloop:project-docs`, "Fold"), and set the change's status to `folded`.
+5. Run the `reflect` skill if installed: decisions, the why behind them, and gotchas from this
    milestone go into the repo's `CLAUDE.md`.
-5. Report, then stop. New scope starts as a new devloop from step 1.
+6. Report, then stop. New scope starts as a new devloop from step 1.
 
 Report: requirements covered (and deltas approved after the freeze), plan lines done, tests and the
 acceptance run with results, review findings and how each was resolved, size per PR, merged PRs,

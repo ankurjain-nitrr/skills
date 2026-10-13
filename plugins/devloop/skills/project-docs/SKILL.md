@@ -1,0 +1,78 @@
+---
+name: project-docs
+description: Keeps a project's PRD, HLD, LLD and execution tracker current, at project level and for each change request, with every change to them reviewed and materialized through hoop. Use when setting up a project's design docs, writing a change's PRD, HLD, LLD or tracker, updating the tracker, folding a merged change's docs into the project docs, or for "PRD", "HLD", "LLD", "design doc", "tracker" or "fold CR-n".
+---
+
+# Project docs: PRD, HLD, LLD and tracker
+
+Every project keeps four living documents, and every change request (CR) keeps the same four for
+its own scope. A CR's documents are folded into the project's right after the CR merges, so the
+project documents always describe what is on `main`. If the repo's `CLAUDE.md` sets another
+layout, follow it.
+
+| Document | Says | Template |
+|---|---|---|
+| `PRD.md` | What and why: goal, users, numbered requirements (`FR-n`, `NFR-n`) with checks, out of scope | [references/PRD.md](references/PRD.md) |
+| `HLD.md` | Architecture: components, data flow, interfaces and contracts, alternatives, decisions (ADR-style) | [references/HLD.md](references/HLD.md) |
+| `LLD.md` | Per module: data models, signatures, algorithms, error handling, test plan by requirement | [references/LLD.md](references/LLD.md) |
+| `TRACKER.md` | Execution: one table row per requirement, slice and task, with status, dependencies, PR, dates | [references/TRACKER.md](references/TRACKER.md) |
+
+## Layout
+
+```
+docs/PRD.md  docs/HLD.md  docs/LLD.md  docs/TRACKER.md      project level: what is on main
+docs/changes/CR-<n>-<slug>/{PRD,HLD,LLD,TRACKER}.md         one folder per change request
+```
+
+`<n>` is the next unused number. A CR's `PRD.md` starts with
+`Status: proposed | approved | implementing | merged | folded | rejected | withdrawn` and
+`Revision: <n>`; nothing builds before `approved`, and a change after approval is a new revision.
+
+## How much per change (tiered)
+
+- **Small fix or chore** (one slice, no interface change): a short CR `PRD.md` (goal, requirements,
+  check) and its `TRACKER.md` rows; no HLD or LLD.
+- **Feature or anything that changes an interface, data model or architecture:** all four.
+
+## Every change goes through hoop
+
+hoop is required. Check its MCP tools (`hoop_submit_markdown`, `hoop_feedback`, `hoop_export`) are
+available; if not, stop and ask the user to install it (`claude mcp add hoop -- hoop mcp`).
+
+1. Write or change the document locally, then submit it: `hoop_submit_markdown` with the file's
+   markdown (`channel: "github"` for team review). Give the user the URL and run
+   `hoop wait <review_id>` in the background.
+2. Read the review with `hoop_feedback`. Answer instruction comments with `hoop_propose_edits`
+   (minimal span edits) and reply in threads with `hoop_reply`; reviewers apply suggestions and
+   accept edits themselves.
+3. To revise beyond the comments, submit the whole document again with the same `review_id`; the
+   reviewer sees "Changes since rev N".
+4. On approval, `hoop_export` and write its markdown to the file unchanged, then commit. Record the
+   review in `docs/.hoop.json` (`{ "<path>": "<review_id>" }`) for traceability.
+
+Never edit an approved document by hand; every change is a new hoop review.
+
+## Tracker rules
+
+- One row per requirement, slice and task; `Parent` builds the hierarchy (task → slice → FR).
+- Status is one of `todo`, `in progress`, `in review`, `blocked`, `done`, `dropped`; update the rows
+  a slice touches in that slice's own PR, so the tracker on `main` matches what merged.
+- A CR's rows move into the project `TRACKER.md` when it folds; done rows stay as history.
+
+## Fold a merged CR into the project docs
+
+Right after the CR's last PR merges, in its own PR (`docs/fold-cr-<n>`):
+
+1. For each of the four documents, merge the CR's content into the project document: add new
+   requirements, update changed sections, record new decisions, move tracker rows. Change as
+   little existing text as possible.
+2. Submit through hoop as a diff: `hoop_submit_markdown` with the current project document, then
+   again with the folded version and the same `review_id`, so the reviewer reviews only what changed.
+3. On approval, export and commit each document; set the CR's status to `folded`; open and merge the
+   fold PR (it's docs-only, so devloop's self-review tier applies).
+
+## Bootstrap
+
+A project without these documents gets them before its first CR: draft each from the code, README
+and history (describe what exists; mark unknowns as open questions), and review each through hoop
+as above.
