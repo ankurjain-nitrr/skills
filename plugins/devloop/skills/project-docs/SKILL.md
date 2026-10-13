@@ -41,7 +41,8 @@ hoop is required: its MCP tools, or the same operations as `hoop` terminal comma
 when the tools aren't loaded. If neither is available, stop and ask the user to install it
 (`claude mcp add hoop -- hoop mcp`).
 
-1. Write or change the document locally and vet it with the `vet-docs` skill bundled with this
+1. Write an HLD as a staff engineer (L6) and an LLD as a senior engineer (L5), as
+   `references/ROLES.md` describes. Then write or change the document locally and vet it with the `vet-docs` skill bundled with this
    plugin (`/devloop:vet-docs`): fix its findings first. For a change's PRD, HLD or LLD, then run
    `/devloop:design-review`, which checks it in a fresh context against the change request, the
    approved documents above it and the project's PRD, HLD and LLD. Fix or record its findings, and

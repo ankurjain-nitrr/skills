@@ -31,6 +31,12 @@ Start a reviewer that didn't write the document, such as a subagent with only th
 the paths and the checks below, and ask for findings only, each with the line, the source it
 conflicts with, and a fix. Don't let it edit files.
 
+Give the reviewer its role, from `../project-docs/references/ROLES.md` in this plugin. An HLD is
+reviewed as a principal engineer (L7), who asks whether it is the right design for the
+organization. An LLD is reviewed as a staff engineer (L6), who asks whether it is sound, fits the
+HLD and will hold up in use. Paste that role's section into the reviewer's prompt, together with
+the checks below.
+
 ### Against the change's own chain
 
 - **Coverage:** Every ask in `REQUEST.md`, and every requirement in the documents above, is
