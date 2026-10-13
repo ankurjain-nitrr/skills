@@ -9,6 +9,15 @@ Read the document as a demanding reviewer would, before a human spends time on i
 then fix them (through hoop when the document is under review there). If the repo's `CLAUDE.md` sets
 its own standards, apply those too.
 
+## Writing comes first (strict)
+
+Run the writing checker from the `writing` skill bundled with this plugin (`/devloop:writing`) on the document. Fix every finding by rewriting the
+text as complete, simple sentences without dashes. The document isn't ready for review until the
+checker reports nothing. Then read the sentences it can't judge (a phrase ending with a period is
+still a phrase).
+
+## Content
+
 Each document has one job. Most problems are content at the wrong level: a solution in the PRD,
 code in the HLD, requirements in the tracker.
 
@@ -70,5 +79,5 @@ code in the HLD, requirements in the tracker.
 
 List findings by severity (must fix, should fix, consider), each with the line, what's wrong, which
 practice it breaks, and the fix. Then apply the fixes: as hoop edits when the document is under
-review there, otherwise in the draft before it's submitted. Finish with what changed and anything
-left for the user to decide.
+review there, otherwise in the draft before it's submitted. Finish with what changed, the writing checker's result
+(it must be zero findings), and anything left for the user to decide.

@@ -92,6 +92,9 @@ choice; split anything with "and". No open questions remain in a frozen spec.
 
 ## 5. Freeze
 
+Write the requirements as complete, simple sentences without dashes, following the `writing` skill bundled with this plugin (`/devloop:writing`).
+The captured request in `REQUEST.md` keeps the requester's own words.
+
 Write the requirements as the change request's PRD, `docs/changes/CR-<n>-<slug>/PRD.md` (see
 `/devloop:project-docs` for the layout and template), and have it reviewed through hoop; approval
 there is the freeze (`Status: approved`, revision 1). Commit it as the first commit of the change's

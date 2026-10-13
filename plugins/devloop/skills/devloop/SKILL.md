@@ -9,6 +9,9 @@ From request to a merged, reviewed milestone in small, tested steps. If the repo
 say otherwise (branch names, test commands, PR template), follow them. `main` below means the
 default branch (`git symbolic-ref refs/remotes/origin/HEAD`; if unset, `git remote set-head origin -a`).
 
+Everything written along the way (requirements, design documents, tracker items, plan lines,
+commit messages, and PR titles and descriptions) follows the `writing` skill bundled with this plugin (`/devloop:writing`).
+
 ## 1. Scope and freeze
 
 Run the `scope` skill bundled with this plugin (`/devloop:scope`): research, ask questions from

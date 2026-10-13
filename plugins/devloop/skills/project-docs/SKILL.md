@@ -55,6 +55,10 @@ when the tools aren't loaded. If neither is available, stop and ask the user to 
    unchanged. Record the
    review in `docs/.hoop.json` (`{ "<path>": "<review_id>" }`) for traceability.
 
+All text in these documents and in tracker items follows the `writing` skill bundled with this plugin (`/devloop:writing`): complete
+sentences, simple language and no dashes. A tracker item's title is a sentence. `REQUEST.md` is
+exempt because it keeps the requester's words.
+
 Never edit an approved document's content by hand; every content change is a new hoop review.
 Bookkeeping is the exception: a CR's `Status:` line and the tracker's Status, PR, Start and Done
 cells are updated directly, in the PR that changes them, with `hoop tracker set <ID> Status=done

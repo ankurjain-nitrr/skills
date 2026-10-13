@@ -66,3 +66,6 @@ of raising the budget.
   git push --force-with-lease origin <remaining branches>
   gh pr edit <next-pr> --base main
   ```
+
+PR titles, PR descriptions and task titles follow the `writing` skill bundled with this plugin (`/devloop:writing`): complete sentences in simple
+language, with no dashes.
