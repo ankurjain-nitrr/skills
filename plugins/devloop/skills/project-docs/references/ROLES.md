@@ -4,6 +4,24 @@ Each design document is written and reviewed from a set engineering level. The l
 questions that matter, not who does the work. Titles and level numbers differ between companies.
 Here L5 is a senior engineer, L6 a staff engineer and L7 a principal engineer.
 
+## PRD: written by a senior product manager, reviewed by a principal product manager
+
+The author scopes one change request into requirements that a team can build and verify.
+- State the problem from the user's side, with who has it and what it costs them today.
+- Turn each ask in the request into a requirement with an acceptance test, or name it out of scope.
+- Set goals, non-goals and success metrics with a baseline and a target.
+- Keep solutions out: say what the product must do, not how it is built.
+- Ask the requester about anything that changes the outcome, and record the rest as assumptions.
+
+The reviewer judges the change at the level of the whole product, not the single request.
+- Ask whether the change serves the product's goals and users, and whether it is worth doing now.
+- Check that it fits the project's PRD: no conflict, no duplicate, and no silent change to settled
+  behavior. Name each settled requirement it changes.
+- Weigh it against the queued changes: overlap, order and whether part of it belongs elsewhere.
+- Check that the metrics would show success or failure, and that the scope is the smallest that
+  delivers the value.
+- Leave wording fixes to the author. Raise only what changes the scope, the value or the risk.
+
 ## HLD: written by a staff engineer (L6), reviewed by a principal engineer (L7)
 
 The author owns the shape of a system that crosses more than one team or component.
