@@ -14,34 +14,45 @@ PRD, HLD and LLD against two sources before a human sees it:
 - **The project's materialized documents:** `docs/PRD.md`, `docs/HLD.md` and `docs/LLD.md`, which
   describe what is already built and approved.
 
-Run it after `/devloop:vet-docs` (which checks the writing and the document's own level) and
-before submitting the document through hoop. The writing rules in `/devloop:writing` apply to its
+Run it after `/devloop:vet-docs`, which checks the writing and the document's own level. The writing rules in `/devloop:writing` apply to its
 findings.
 
-## 1. Gather the inputs
+The review runs in hoop, with one agent per role. Each reviewer comments on the document itself,
+the owner answers in the threads, and the requester sees the whole discussion before approving.
+The rules for principles, good comments, cycles and the owner's call are in
+`references/REVIEWING.md`.
 
-- The change folder: `docs/changes/CR-<n>-<slug>/` with `REQUEST.md`, `NOTES.md` and the approved
-  documents above the one under review.
-- The document under review.
-- The project's `docs/PRD.md`, `docs/HLD.md` and `docs/LLD.md`, if they exist.
+## 1. Roles
 
-## 2. Review in a fresh context
+| Document | Owner (author agent) | Reviewers (agents) |
+|---|---|---|
+| PRD | `senior-product-manager` | `principal-product-manager`, `staff-engineer` |
+| HLD | `staff-engineer` | `principal-engineer` |
+| LLD | `senior-engineer` | `staff-engineer`, `engineer-l4` |
 
-Start a reviewer that didn't write the document, such as a subagent with only these files. Give it
-the paths and the checks below, and ask for findings only, each with the line, the source it
-conflicts with, and a fix. Don't let it edit files.
+The owner writes the document and makes the final call on every comment. Write the document as the
+owner agent, or in its role yourself, as `../project-docs/references/ROLES.md` describes.
 
-Give each reviewer its role, from `../project-docs/references/ROLES.md` in this plugin, and run one
-fresh reviewer per role:
-- A PRD gets two reviewers. A principal product manager judges the change for the whole product,
-  and a staff engineer (L6) checks that it can be built and measured.
-- An HLD gets a principal engineer (L7), who asks whether it is the right design for the
-  organization.
-- An LLD gets two reviewers. A staff engineer (L6) asks whether it is sound and fits the HLD. An
-  engineer (L4) checks every claim against the code as it is today.
+## 2. Open the review in hoop
 
-Paste the role's section into each reviewer's prompt, together with the checks below. Merge their
-findings into one list, and say which reviewer raised each one.
+Submit the document linked to its change, as `/devloop:project-docs` describes. The command is
+`hoop submit <file> --cr <CR> --doc <prd|hld|lld>`. Note the review ID. To review a revision of
+an approved document, open a new review in two steps. Its first revision is the approved text, and
+its second is the new one. Then the threads sit on what changed.
+
+## 3. Cycle one: reviewers comment
+
+Start every reviewer agent for the document at once, each in a fresh context. Give each one these
+inputs:
+- The review ID and the hoop address.
+- The paths of the change's `REQUEST.md`, `NOTES.md` and approved documents above this one.
+- The project's `docs/PRD.md`, `docs/HLD.md` and `docs/LLD.md`.
+- The checks below, and `references/REVIEWING.md`.
+
+Each reviewer posts its comments to hoop with the verdict "comment" and returns a one-line summary.
+No reviewer approves; only the requester does.
+
+## The checks reviewers apply
 
 ### Against the change's own chain
 
@@ -65,14 +76,23 @@ findings into one list, and say which reviewer raised each one.
 - **Consistency:** Names, IDs, terms and component boundaries match the project's documents. A new
   ID doesn't clash with an existing one.
 
-## 3. Resolve before review
+## 4. The owner answers
 
-Fix every finding in the draft, or keep the text and record why in the document's assumptions or
-in the hoop submission note. Then submit through hoop as `/devloop:project-docs` describes. Tell the
-human reviewer what the design review found and how each finding was resolved.
+As the owner, read the comments with `hoop feedback <review_id>`. Answer every thread with
+`hoop reply`: accept and change the document, decline with a reason, or ask. Submit document changes
+as a new revision with `hoop submit <file> --review <review_id>`, or as tracked changes with
+`hoop propose`. Check the writing again before each revision.
 
-## 4. Report
+## 5. Cycle two, then the owner's call
 
-List the findings by severity (must fix, should fix, consider). For each, give the line, the source
-(the request, an approved document or a project document, with its ID), the problem and the fix.
-End with "Design review: N findings, all resolved" or the ones left for the human to decide.
+Start each reviewer whose threads got an answer once more, with the review ID. It replies once on
+each of its threads: agree, or say what still worries it. The owner answers again. After that, a
+thread that still disagrees gets the owner's reply "Decision: <what and why>." The reviewer
+disagrees and commits, and no third cycle runs.
+
+## 6. Hand over to the requester
+
+Tell the requester the review's address and a short summary: how many comments each reviewer made,
+how many were accepted or declined, and each "Decision:". The requester reads the threads on the
+document and approves, comments or requests changes. A requester's comment starts a new cycle with
+the owner.
