@@ -41,21 +41,21 @@ hoop is required: its MCP tools, or the same operations as `hoop` terminal comma
 when the tools aren't loaded. If neither is available, stop and ask the user to install it
 (`claude mcp add hoop -- hoop mcp`).
 
-1. Write a PRD as a senior product manager, an HLD as a staff engineer (L6) and an LLD as a senior
-   engineer (L5), as `references/ROLES.md` describes. Then write or change the document locally and vet it with the `vet-docs` skill bundled with this
-   plugin (`/devloop:vet-docs`): fix its findings first. For a change's PRD, HLD or LLD, then run
-   `/devloop:design-review`, which checks it in a fresh context against the change request, the
-   approved documents above it and the project's PRD, HLD and LLD. Fix or record its findings, and
-   tell the reviewer what it found. Then submit it, linked to its change:
+1. Write the document as its owner: a PRD as the `senior-product-manager` agent, an HLD as the
+   `staff-engineer` agent and an LLD as the `senior-engineer` agent (`references/ROLES.md`). Vet it
+   with `/devloop:vet-docs` and fix its findings. Then submit it, linked to its change:
    `hoop submit <file> --cr <CR> --doc <prd|hld|lld>` (or `hoop_submit_markdown` with `change`;
-   `--channel github` for team review). A refusal names what to approve first. Give the user the
-   URL and run `hoop wait <review_id>` in the background.
-2. Read the review with `hoop_feedback`. Answer instruction comments with `hoop_propose_edits`
+   `--channel github` for team review). A refusal names what to approve first.
+2. For a change's PRD, HLD or LLD, run `/devloop:design-review`. Its reviewer agents comment on the
+   document in hoop, the owner answers in the threads for at most two cycles, and the owner makes
+   the final call on what stays open. Then give the user the URL and run `hoop wait <review_id>` in
+   the background.
+3. Read the user's review with `hoop_feedback`. Answer instruction comments with `hoop_propose_edits`
    (minimal span edits) and reply in threads with `hoop_reply`; reviewers apply suggestions and
    accept edits themselves.
-3. To revise beyond the comments, submit the whole document again with the same `review_id`; the
+4. To revise beyond the comments, submit the whole document again with the same `review_id`; the
    reviewer sees "Changes since rev N".
-4. On approval, `hoop export <review_id> --out <file>` (or `hoop_export`) and commit the file
+5. On approval, `hoop export <review_id> --out <file>` (or `hoop_export`) and commit the file
    unchanged. Record the
    review in `docs/.hoop.json` (`{ "<path>": "<review_id>" }`) for traceability.
 

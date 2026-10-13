@@ -36,9 +36,9 @@ Using the `project-docs` skill bundled with this plugin (`/devloop:project-docs`
 
 - If the project has no `docs/PRD.md`, `HLD.md`, `LLD.md` and `TRACKER.md`, bootstrap them first.
 - Every change gets a PRD, HLD and LLD, sized to it, each approved through hoop before the next is
-  written, and all three before planning. Before each goes to review, `/devloop:vet-docs` checks
-  it, then `/devloop:design-review` checks it against the change request and the project's
-  documents. Link each review to the change (`--cr`, `--doc`) so hoop
+  written, and all three before planning. Each is written by its owner agent and vetted with
+  `/devloop:vet-docs`. Then `/devloop:design-review` runs its reviewer agents, which comment on the
+  document in hoop before the user approves it. Link each review to the change (`--cr`, `--doc`) so hoop
   holds the order. Record steps with `hoop cr step` and show `hoop cr show <CR>` when reporting.
 
 ## 3. Plan: at most 10 lines
