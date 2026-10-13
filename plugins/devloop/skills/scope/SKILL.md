@@ -28,6 +28,9 @@ the same documents or files, conflicting goals, or one depending on another. Res
 notes and the tracker, and tell the requester what was decided, so they can change it. In-progress
 changes aren't re-opened; note any dependency on them instead.
 
+A bug report is captured the same way, with type bug. Its definition of done starts with a test
+that reproduces the bug and fails before the fix.
+
 Scoping (the steps below) starts when a queued change is picked up.
 
 ## 1. Research before asking

@@ -1,6 +1,6 @@
 ---
 name: devloop
-description: Takes a code change from request to small, tested, reviewed pull requests merged as a milestone, starting from frozen requirements and a short plan agreed with the user. Use for implementing a feature, fix or refactor end to end, "devloop", "plan and ship this", or when a change should land as PRs of at most 10 files and 500 lines.
+description: Takes a code change from request to small, tested, reviewed pull requests merged as a milestone, starting from frozen requirements and a short plan agreed with the user. Every defect found on the way, and every reported bug, gets a regression test. Use for implementing a feature, fix or refactor end to end, "devloop", "plan and ship this", or when a change should land as PRs of at most 10 files and 500 lines.
 ---
 
 # Devloop
@@ -89,6 +89,13 @@ commit builds and passes tests. Each slice's PR updates its rows in the change's
 which avoids shell-quoting mistakes. After each slice, give the user a one-line status (slice n/m,
 tests, what's next): they can't see the work between messages.
 
+**Every defect gets a regression test.** This applies to a defect found by a review, a test, the
+acceptance run, a probe or the user, and to a reported bug. First write a test that fails because
+of the defect, and see it fail. Then fix the code and see the test pass. The test stays in the
+suite, named for the behavior it protects, so the defect can't come back unnoticed. A fix without
+such a test isn't done. If no automated test can reach the defect, say why in the PR and add the
+closest check that can.
+
 **Requests that arrive mid-build** (new features, "also make it…") are new scope. Record each as a
 change-control delta via `/devloop:scope` and queue it for the next milestone; fold it into the
 current stack only if the user says so, and then re-plan the slices.
@@ -153,7 +160,8 @@ debug leftovers, a requirement without a test, contract changes the user hasn't 
 Run the `fresh-review` skill bundled with this plugin (`/devloop:fresh-review`). Scale it to risk:
 
 - **Always:** before merging, review the whole stack (`main...<top branch>`) with a fresh-context
-  reviewer, fix every finding in follow-up slices, and re-run the tests.
+  reviewer, fix every finding in follow-up slices with a regression test for each (step 6), and
+  re-run the tests.
 - **Also per slice**, before the next one builds on it, when a slice touches security, data
   migration, a public API, or core invariants.
 - **Docs-only or trivial changes:** self-review (step 8) is enough.
