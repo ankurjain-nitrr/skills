@@ -1,6 +1,6 @@
 ---
 name: scope
-description: Scopes and freezes the functional requirements for a change with the user before any planning or code. Use whenever a feature request is short or leaves behavior undecided ("add order export", "support refunds"), even if the user doesn't mention requirements; at the start of any new feature; or for "scope this", "requirements", "spec it out", "interview me" or "freeze the scope". Not for typo-level fixes or edits whose behavior is already fully specified.
+description: Captures and queues change requests as written (resolving overlaps with other queued ones), then scopes and freezes the functional requirements for a change with the user before any planning or code. Use when the user gives a new request or change request ("capture this", "queue it", "new CR"), and whenever a feature request is short or leaves behavior undecided ("add order export", "support refunds"), even if the user doesn't mention requirements; at the start of any new feature; or for "scope this", "requirements", "spec it out", "interview me" or "freeze the scope". Not for typo-level fixes or edits whose behavior is already fully specified.
 ---
 
 # Scope and freeze requirements
@@ -15,9 +15,12 @@ several rounds.
 ## 0. Capture and queue
 
 Every request is first captured as a change request, in the requester's own words, and **queued**
-(`docs/changes/CR-<n>-<slug>/REQUEST.md`, see `/devloop:project-docs`; with hoop's change tools,
-`hoop cr create`). Requests that arrive while another change is in progress are queued, not folded
-in, unless the requester says so.
+with `hoop cr create` (or `hoop_cr_create`), which writes `docs/changes/CR-<n>-<slug>/REQUEST.md`
+byte for byte and adds the change to the tracker (see `/devloop:project-docs`). Classify it as
+epic, story, task or bug with a one-line reason; read `docs/changes/CLASSIFICATION.md` first, and
+when the requester corrects a type, record it with `hoop cr classify <CR> <type> --reason ... --why
+...` so later classifications learn from it. Requests that arrive while another change is in
+progress are queued, not folded in, unless the requester says so.
 
 Each time a request is queued, compare it with every other **queued** request: the same behavior,
 the same documents or files, conflicting goals, or one depending on another. Resolve each overlap

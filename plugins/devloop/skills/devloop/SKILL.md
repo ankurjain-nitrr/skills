@@ -23,8 +23,8 @@ anything yet. Find the test command and whether a pre-commit hook runs tests
 
 Preflight the environment now, not mid-slice: the runtime versions installed against what the
 project and its test tools need (a browser-test library may need a newer runtime than the app),
-browsers for UI tests, the CLI tools scripts call (`gh`, `timeout`, `jq`), and hoop's MCP tools
-(required for the design docs; if missing, ask the user to install hoop). Note gaps and the
+browsers for UI tests, the CLI tools scripts call (`gh`, `timeout`, `jq`), and hoop (its MCP tools
+or the `hoop` command; required for the design docs; if neither, ask the user to install hoop). Note gaps and the
 workaround (an alternate runtime path, a skipped test) before planning around them.
 
 ## 2b. Design docs
@@ -32,9 +32,9 @@ workaround (an alternate runtime path, a skipped test) before planning around th
 Using the `project-docs` skill bundled with this plugin (`/devloop:project-docs`):
 
 - If the project has no `docs/PRD.md`, `HLD.md`, `LLD.md` and `TRACKER.md`, bootstrap them first.
-- For a feature, or any change to an interface, data model or architecture, write the change's
-  `HLD.md` and `LLD.md` next to its PRD and have each approved through hoop before planning. A
-  small fix needs only its PRD and tracker rows.
+- Every change gets a PRD, HLD and LLD, sized to it, each approved through hoop before the next is
+  written, and all three before planning. Link each review to the change (`--cr`, `--doc`) so hoop
+  holds the order. Record steps with `hoop cr step` and show `hoop cr show <CR>` when reporting.
 
 ## 3. Plan: at most 10 lines
 
@@ -168,9 +168,11 @@ fixes. Unit tests passing is not acceptance.
 ## 12. Milestone: merge, record, stop
 
 1. Merge the stack in order once reviewed and accepted (ask the user if they haven't approved
-   merging): retarget each next PR to `main` (`gh pr edit <n> --base main`), then
-   `gh pr merge <n> --merge`. Merge commits keep the stack's branches valid; squashing needs
-   `/devloop:slice` restacks between merges.
+   merging). For each PR: `gh pr merge <n> --merge`, then retarget the next PR
+   (`gh pr edit <next> --base main`), and only then delete the merged branch. Never pass
+   `--delete-branch` while another PR is based on that branch: GitHub closes PRs whose base is
+   deleted, and they can't be reopened after a force-push. Merge commits keep the stack's
+   branches valid; squashing needs `/devloop:slice` restacks between merges.
 2. Check `main` matches the reviewed top branch (`git diff --quiet <top> main`) and its tests pass.
    Delete the merged branches, locally and on the remote.
 3. Tag a release if the project versions them and the user agrees.
