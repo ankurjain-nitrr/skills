@@ -1,11 +1,11 @@
 ---
 name: devloop
-description: Takes a code change from request to small, tested, reviewable pull requests on a new branch, starting from frozen requirements and a short plan agreed with the user. Use for implementing a feature, fix or refactor end to end, "devloop", "plan and ship this", or when a change should land as PRs of at most 10 files and 500 lines.
+description: Takes a code change from request to small, tested, reviewed pull requests merged as a milestone, starting from frozen requirements and a short plan agreed with the user. Use for implementing a feature, fix or refactor end to end, "devloop", "plan and ship this", or when a change should land as PRs of at most 10 files and 500 lines.
 ---
 
 # Devloop
 
-From request to reviewed PR in small, tested steps. If the repo's `CLAUDE.md` or its own skills
+From request to a merged, reviewed milestone in small, tested steps. If the repo's `CLAUDE.md` or its own skills
 say otherwise (branch names, test commands, PR template), follow them. `main` below means the
 default branch (`git symbolic-ref refs/remotes/origin/HEAD`; if unset, `git remote set-head origin -a`).
 
@@ -21,6 +21,11 @@ Read the code, tests and docs the change touches, beyond what scoping already co
 anything yet. Find the test command and whether a pre-commit hook runs tests
 (`.pre-commit-config.yaml`, `.husky/`, `lefthook.yml`, `.git/hooks/pre-commit`).
 
+Preflight the environment now, not mid-slice: the runtime versions installed against what the
+project and its test tools need (a browser-test library may need a newer runtime than the app),
+browsers for UI tests, and the CLI tools scripts call (`gh`, `timeout`, `jq`). Note gaps and the
+workaround (an alternate runtime path, a skipped test) before planning around them.
+
 ## 3. Plan: at most 10 lines
 
 - Plan from the frozen requirements; each line names the requirement IDs it covers, and every
@@ -34,7 +39,10 @@ anything yet. Find the test command and whether a pre-commit hook runs tests
   and list the rest as follow-ups.
 - Group the plan lines into PR slices with the `slice` skill bundled with this plugin
   (`/devloop:slice`): vertical slices that each deliver requirements end to end, a walking
-  skeleton first for new surfaces, riskiest first. Show the plan and the slice map together.
+  skeleton first for new surfaces, riskiest first, with each slice's estimated file count. Show the
+  plan and the slice map together.
+- Note whether the change adds a server, web UI, external input, auth, or file paths built from
+  input; if so, the security checklist in step 7 applies to every slice.
 
 ## 4. Branch and baseline
 
@@ -43,7 +51,9 @@ git fetch origin
 git switch -c <type>/<slug> origin/main    # e.g. feat/cancel-unpaid-orders
 ```
 
-Never commit on `main`. Commit the frozen spec first if it is kept as a file. Run the full test suite on the new branch before changing anything. If it
+Never commit on `main`. Before every commit, check `git branch --show-current` is the slice's
+branch; in a stack it's easy to commit onto the slice below. Commit the frozen spec first if it is
+kept as a file. Run the full test suite on the new branch before changing anything. If it
 already fails, stop and report; don't build on a red baseline.
 
 ## 5. API first
@@ -60,13 +70,20 @@ already fails, stop and report; don't build on a red baseline.
 Write the smallest code that makes the tests pass, one plan line at a time. Write comments and docs
 by the `code-docs` skill bundled with this plugin (`/devloop:code-docs`): current code only, no
 change history or narration, as short as possible. Commit per plan line or logical step; every
-commit builds and passes tests.
+commit builds and passes tests. Write multi-line commit messages to a file and use `git commit -F`,
+which avoids shell-quoting mistakes. After each slice, give the user a one-line status (slice n/m,
+tests, what's next): they can't see the work between messages.
+
+**Requests that arrive mid-build** (new features, "also make it…") are new scope. Record each as a
+change-control delta via `/devloop:scope` and queue it for the next milestone; fold it into the
+current stack only if the user says so, and then re-plan the slices.
 
 ## 7. Gates (before every commit and push)
 
 - **Tests:** if a pre-commit hook runs the tests, let it; otherwise run them directly before each
   commit. Never use `--no-verify` or skip failing tests. Don't install hooks without asking.
-- **Size:** each PR changes at most **10 files and 500 lines** (additions plus deletions):
+- **Size:** check before committing, not after: each PR changes at most **10 files and 500 lines**
+  (additions plus deletions):
 
   ```sh
   git diff --numstat <base>...HEAD -- . ':(exclude)*.lock' ':(exclude)package-lock.json'
@@ -75,6 +92,10 @@ commit builds and passes tests.
   Lockfiles, generated code and snapshots don't count toward the budget (extend the excludes for
   the repo's generated paths), but list them in the PR.
   If a slice goes over, split it further with `/devloop:slice` rather than raising the budget.
+- **Security** (when step 3 flagged it): servers check Host and Origin and refuse cross-site writes
+  (a local API is reachable from any web page); every value put into HTML is escaped; IDs and
+  names used in paths are validated; subprocesses get argument arrays, never shell strings;
+  secrets stay out of logs, files and commits. Add a test for each.
 
 ## 8. Self-review
 
@@ -112,17 +133,39 @@ debug leftovers, a requirement without a test, contract changes the user hasn't 
 
 4. When CI passes (`gh pr checks --watch`), mark it ready: `gh pr ready`.
 
-## 10. Fresh-session review
+## 10. Fresh-context review
 
-Run the `fresh-review` skill bundled with this plugin (`/devloop:fresh-review`): a reviewable title
-and description, a review by the repo's CI reviewer or Anthropic's `code-review` plugin (fresh-context
-reviewers, given only the PR URL), and every finding fixed or answered. Don't create the next slice's PR until then.
+Run the `fresh-review` skill bundled with this plugin (`/devloop:fresh-review`). Scale it to risk:
 
-Multi-slice changes run as a stack, one slice at a time through steps 6-10; branching, restacking
-and retargeting are in `/devloop:slice`.
+- **Always:** before merging, review the whole stack (`main...<top branch>`) with a fresh-context
+  reviewer, fix every finding in follow-up slices, and re-run the tests.
+- **Also per slice**, before the next one builds on it, when a slice touches security, data
+  migration, a public API, or core invariants.
+- **Docs-only or trivial changes:** self-review (step 8) is enough.
 
-## 11. Report
+Multi-slice changes run as a stack through steps 6-10; branching, restacking and retargeting are in
+`/devloop:slice`.
 
-Requirements covered (and any deltas approved after the freeze), plan lines done, tests run and results,
-the review outcome per PR, the readme-check result, size per PR against the budget,
-and PR links. Mention anything skipped and why.
+## 11. Acceptance run
+
+Before merging, run the change end to end against real systems, as a user would: the real server or
+CLI, a browser for UIs, a sandbox repo or account for external services. Map the run's steps to the
+requirement IDs, keep it as a script in the repo so it can be re-run, and run it again after review
+fixes. Unit tests passing is not acceptance.
+
+## 12. Milestone: merge, record, stop
+
+1. Merge the stack in order once reviewed and accepted (ask the user if they haven't approved
+   merging): retarget each next PR to `main` (`gh pr edit <n> --base main`), then
+   `gh pr merge <n> --merge`. Merge commits keep the stack's branches valid; squashing needs
+   `/devloop:slice` restacks between merges.
+2. Check `main` matches the reviewed top branch (`git diff --quiet <top> main`) and its tests pass.
+   Delete the merged branches, locally and on the remote.
+3. Tag a release if the project versions them and the user agrees.
+4. Run the `reflect` skill if installed: decisions, the why behind them, and gotchas from this
+   milestone go into the repo's `CLAUDE.md`.
+5. Report, then stop. New scope starts as a new devloop from step 1.
+
+Report: requirements covered (and deltas approved after the freeze), plan lines done, tests and the
+acceptance run with results, review findings and how each was resolved, size per PR, merged PRs,
+and anything skipped and why.

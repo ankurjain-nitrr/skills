@@ -1,6 +1,6 @@
 ---
 name: fresh-review
-description: Gets a pull request reviewed by fresh-context reviewers that didn't write it, with a title and description a reviewer can work from, and resolves the findings before more work stacks on top. Use after opening a PR, before starting the next PR in a stack, or for "get this PR reviewed", "review in a fresh session" or "independent review".
+description: Gets a pull request reviewed by fresh-context reviewers that didn't write it, with a title and description a reviewer can work from, and resolves the findings before more work stacks on top. Use after opening a PR, before starting the next PR in a stack, before merging a stack, or for "get this PR reviewed", "review in a fresh session" or "independent review".
 ---
 
 # Fresh-context review
@@ -57,7 +57,17 @@ errors and posted no new comment, the review is clean.
   `/code-review <pr-number> --comment` (the plugin skips PRs it already reviewed).
 - If a fix changes what gets built, it goes through scope's change control.
 
-## 6. Then move on
+## 6. Reviewing a whole stack
+
+Before a stack merges, review its combined diff the same way, with a reviewer that didn't write it:
+a fresh subagent (or a new session) given only the repository path, the range
+(`git diff main...<top branch>`), the spec, and what to look for. Pass the repository path
+explicitly: review skills default to the session's working directory, which may be another repo.
+Ask for real problems only, ranked, each with a file and line, a reproduced failure where possible,
+and a fix; point it at the change's invariants (what must never happen), security, data loss, and
+anything that would break the tests. Fix the findings in follow-up slices before merging.
+
+## 7. Then move on
 
 Start the next slice only when every finding on this PR is fixed or answered. Note the review
 outcome in the report (`review: 2 findings fixed, 1 answered`, or `review: clean`).

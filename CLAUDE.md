@@ -13,3 +13,5 @@ create-skill plugin; dev-workflow skills belong in `devloop` as subskills.
    `bash plugins/create-skill/skills/create-skill/scripts/trigger-test.sh <queries.tsv> plugins/<plugin>...`
 5. Commit and push to `main`, then refresh the local install:
    `claude plugin marketplace update ankurjain-skills && claude plugin update <plugin>@ankurjain-skills`.
+   Projects that enable the plugin keep their own copy: also run it with `--scope project` from those
+   repos (for example `~/Projects/instrumentor`).
