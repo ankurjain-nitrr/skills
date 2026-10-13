@@ -50,7 +50,9 @@ available; if not, stop and ask the user to install it (`claude mcp add hoop -- 
 4. On approval, `hoop_export` and write its markdown to the file unchanged, then commit. Record the
    review in `docs/.hoop.json` (`{ "<path>": "<review_id>" }`) for traceability.
 
-Never edit an approved document by hand; every change is a new hoop review.
+Never edit an approved document's content by hand; every content change is a new hoop review.
+Bookkeeping is the exception: a CR's `Status:` line and the tracker's Status, PR, Start and Done
+cells are updated directly, in the PR that changes them.
 
 ## Tracker rules
 
