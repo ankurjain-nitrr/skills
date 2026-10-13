@@ -53,6 +53,8 @@ errors and posted no new comment, the review is clean.
 
 - Fix it in a new commit on the PR's branch (the gates still apply), or reply on the PR with the
   reason it stays as is. Don't silently drop a finding.
+- Every fixed defect comes with a regression test that fails without the fix and passes with it.
+  A finding about a missing test is fixed by adding that test.
 - If the fixes go beyond small, local changes, review again with the built-in
   `/code-review <pr-number> --comment` (the plugin skips PRs it already reviewed).
 - If a fix changes what gets built, it goes through scope's change control.
