@@ -42,7 +42,10 @@ when the tools aren't loaded. If neither is available, stop and ask the user to 
 (`claude mcp add hoop -- hoop mcp`).
 
 1. Write or change the document locally and vet it with the `vet-docs` skill bundled with this
-   plugin (`/devloop:vet-docs`): fix its findings first. Then submit it, linked to its change:
+   plugin (`/devloop:vet-docs`): fix its findings first. For a change's PRD, HLD or LLD, then run
+   `/devloop:design-review`, which checks it in a fresh context against the change request, the
+   approved documents above it and the project's PRD, HLD and LLD. Fix or record its findings, and
+   tell the reviewer what it found. Then submit it, linked to its change:
    `hoop submit <file> --cr <CR> --doc <prd|hld|lld>` (or `hoop_submit_markdown` with `change`;
    `--channel github` for team review). A refusal names what to approve first. Give the user the
    URL and run `hoop wait <review_id>` in the background.
