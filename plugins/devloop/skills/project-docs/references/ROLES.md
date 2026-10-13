@@ -4,7 +4,7 @@ Each design document is written and reviewed from a set engineering level. The l
 questions that matter, not who does the work. Titles and level numbers differ between companies.
 Here L5 is a senior engineer, L6 a staff engineer and L7 a principal engineer.
 
-## PRD: written by a senior product manager, reviewed by a principal product manager
+## PRD: written by a senior product manager, reviewed by a principal product manager and a staff engineer (L6)
 
 The author scopes one change request into requirements that a team can build and verify.
 - State the problem from the user's side, with who has it and what it costs them today.
@@ -21,6 +21,12 @@ The reviewer judges the change at the level of the whole product, not the single
 - Check that the metrics would show success or failure, and that the scope is the smallest that
   delivers the value.
 - Leave wording fixes to the author. Raise only what changes the scope, the value or the risk.
+
+The staff engineer (L6) reviews the same PRD for whether it can be built and checked.
+- Check that each requirement is clear enough to design and test, with no hidden solution in it.
+- Flag requirements that are very costly, risky or impossible with the current system, and say why.
+- Check that every acceptance test and metric can actually be measured.
+- Name technical constraints or dependencies the PRD should state as assumptions.
 
 ## HLD: written by a staff engineer (L6), reviewed by a principal engineer (L7)
 
@@ -39,7 +45,7 @@ The reviewer judges whether this is the right design for the organization, not t
 - Ask whether a simpler shape, an existing component or a smaller first step would do.
 - Leave small fixes to the author. Raise only what changes the design or its risk.
 
-## LLD: written by a senior engineer (L5), reviewed by a staff engineer (L6)
+## LLD: written by a senior engineer (L5), reviewed by a staff engineer (L6) and an engineer (L4)
 
 The author turns an approved HLD into a design that a team can build and test without guessing.
 - Give each component its interfaces, data, states and errors, using the project's names.
@@ -54,3 +60,9 @@ The reviewer checks that the design is sound, fits the HLD and will hold up in u
   out and observed.
 - Ask whether the tests would catch the defects that matter, and whether a simpler design exists.
 - Check that the pull request plan can deliver it in order, each step working on its own.
+
+The engineer (L4) checks the same LLD against the code as it is today.
+- Check that every file, function, field, route and test the LLD names exists, or is clearly new.
+- Check that each claim about current behavior is true, by reading the code it describes.
+- Find the call sites and tests that the change touches but the LLD doesn't mention.
+- Flag any step that can't be built as written, such as a missing hook or a type that doesn't fit.

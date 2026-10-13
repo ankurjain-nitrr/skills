@@ -31,12 +31,17 @@ Start a reviewer that didn't write the document, such as a subagent with only th
 the paths and the checks below, and ask for findings only, each with the line, the source it
 conflicts with, and a fix. Don't let it edit files.
 
-Give the reviewer its role, from `../project-docs/references/ROLES.md` in this plugin. A PRD is
-reviewed as a principal product manager, who judges the change at the level of the whole product.
-An HLD is reviewed as a principal engineer (L7), who asks whether it is the right design for the
-organization. An LLD is reviewed as a staff engineer (L6), who asks whether it is sound, fits the
-HLD and will hold up in use. Paste that role's section into the reviewer's prompt, together with
-the checks below.
+Give each reviewer its role, from `../project-docs/references/ROLES.md` in this plugin, and run one
+fresh reviewer per role:
+- A PRD gets two reviewers. A principal product manager judges the change for the whole product,
+  and a staff engineer (L6) checks that it can be built and measured.
+- An HLD gets a principal engineer (L7), who asks whether it is the right design for the
+  organization.
+- An LLD gets two reviewers. A staff engineer (L6) asks whether it is sound and fits the HLD. An
+  engineer (L4) checks every claim against the code as it is today.
+
+Paste the role's section into each reviewer's prompt, together with the checks below. Merge their
+findings into one list, and say which reviewer raised each one.
 
 ### Against the change's own chain
 
