@@ -1,15 +1,62 @@
 # <Project or change>: tracker
 
-Work items only; requirements stay in the PRD and are referenced in Covers.
+This tracker lists work items only. Requirements stay in the PRD, and the Covers column points to
+them. The table is the index; each item's description and definition of done are in its block
+under "Items".
 
 | ID | Parent | Type | Title | Covers | Status | Phase | Depends on | PR | Size | Start | Done |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| CR-1 | | epic | <change request> | | in progress | prd | | | | <date> | |
-| ST-1 | CR-1 | story | As <user>, I can <do> so that <value> | FR-1 | todo | | | | | | |
-| T-1 | ST-1 | task | <task> | | todo | | | | ~4 files | | |
-| ST-1.1 | T-1 | sub-task | <sub-task> | | todo | | | | | | |
-| BG-1 | ST-1 | bug | <bug> | FR-1 | todo | | | | | | |
+| CR-1 | | epic | <One sentence that names the change>. | | in progress | prd | | | | <date> | |
+| ST-1 | CR-1 | story | As <user>, I can <do> so that <value>. | FR-1 | todo | | | | | | |
+| T-1 | ST-1 | task | <One sentence that names the task>. | FR-1 | todo | | | | ~4 files | | |
+| ST-1.1 | T-1 | sub-task | <One sentence that names the step>. | | todo | | | | | | |
+| BG-1 | ST-1 | bug | <One sentence that says what is wrong>. | FR-1 | todo | | | | | | |
 
-Types: epic · story · task · sub-task · bug. Status: todo · in progress · in review · blocked · done · dropped.
-Phase (epics): intake · prd · hld · lld · plan · build · review · accept · merge · fold · closed.
-Definition of done: acceptance criteria met, tests pass, reviewed, merged, docs updated.
+Types are epic, story, task, sub-task and bug. Status is todo, in progress, in review, blocked,
+done or dropped. An epic's phase is one of intake, prd, hld, lld, plan, build, review, accept,
+merge, fold or closed.
+
+## Items
+
+### CR-1: <One sentence that names the change>.
+
+<Two or three sentences: what the change delivers and why it matters>.
+
+Definition of done:
+- Every story under it is done.
+- The acceptance run passes for every requirement it covers.
+- Its PRD, HLD and LLD are folded into the project documents.
+- <The success metric it moves, and how it was measured>.
+
+### ST-1: As <user>, I can <do> so that <value>.
+
+<Two or three sentences: who benefits, and what they can do afterwards>.
+
+Definition of done:
+- <Each acceptance criterion, written as Given, when, then, passes in a test>.
+- A person can do it end to end in the running product.
+- Every task under it is merged.
+
+### T-1: <One sentence that names the task>.
+
+<Two or three sentences: what changes, and where>.
+
+Definition of done:
+- <The specific change is merged in one pull request>.
+- <The named tests cover it and pass>.
+- The fresh review's findings are resolved.
+
+### ST-1.1: <One sentence that names the step>.
+
+<One sentence: what the step does>.
+
+Definition of done:
+- <The step is complete, and how that was checked>.
+
+### BG-1: <One sentence that says what is wrong>.
+
+<What happens, what should happen, and how to reproduce it>.
+
+Definition of done:
+- A test reproduces the bug, and it now passes.
+- The cause is fixed, not only the symptom.

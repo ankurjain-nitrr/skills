@@ -71,8 +71,10 @@ code in the HLD, requirements in the tracker.
   the item it affects).
 - Stories meet **INVEST** (independent, negotiable, valuable, estimable, small, testable) and state
   the user value; a story with no user benefit is a task.
-- Each story or bug has **acceptance criteria**, or points to the PRD's; the tracker states one
-  **definition of done** for all items.
+- Each story or bug has **acceptance criteria**, or points to the PRD's.
+- Every item has a **description block** under "Items" with its own **definition of done**, at its
+  own level. Flag a missing block, a definition copied from a higher or lower level (a task that
+  says "users can export orders", an epic that says "tests pass"), and a point no one could check.
 - Status, phase and dates are current; nothing is `done` without its PR.
 
 ## Report

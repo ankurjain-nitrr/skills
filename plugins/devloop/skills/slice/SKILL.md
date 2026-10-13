@@ -69,3 +69,7 @@ of raising the budget.
 
 PR titles, PR descriptions and task titles follow the `writing` skill bundled with this plugin (`/devloop:writing`): complete sentences in simple
 language, with no dashes.
+
+Each slice is a tracker task. Its definition of done (in its block under "Items", see
+`/devloop:project-docs`) names the change, the tests that cover it and the review, and the PR
+description repeats it as the checklist for that PR.
