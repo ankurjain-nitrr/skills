@@ -95,6 +95,9 @@ choice; split anything with "and". No open questions remain in a frozen spec.
 
 ## 5. Freeze
 
+Scope and write the PRD as a senior product manager would, as `../project-docs/references/ROLES.md`
+in this plugin describes. A principal product manager reviews it through `/devloop:design-review`.
+
 Write the requirements as complete, simple sentences without dashes, following the `writing` skill bundled with this plugin (`/devloop:writing`).
 The captured request in `REQUEST.md` keeps the requester's own words.
 
