@@ -2,18 +2,28 @@
 
 Status: <proposed | approved | implementing | merged | folded> · Revision: <n> · Owner: <name>
 
-## Goal
-<one paragraph: the problem, who has it, what success looks like>
+## Problem
+<who has which problem today, and what it costs them; no solution yet>
 
-## Users
-- <who uses it and what they need>
+## Goals and non-goals
+- Goal: <outcome>
+- Non-goal: <explicitly not attempted>
+
+## Success metrics
+| Metric | Baseline | Target | How measured |
+|---|---|---|---|
+| <metric> | <today> | <goal> | <method> |
+
+## Users and scenarios
+- <user>: <what they are trying to do, step by step>
 
 ## Requirements
-- FR-1: When <trigger>, the system shall <behavior>. Check: <how it is verified>
-- NFR-1: <measurable constraint>. Check: <how>
+- FR-1: When <trigger>, the system shall <observable behavior>.
+  Acceptance: Given <context>, when <action>, then <result>.
+- NFR-1: <measurable constraint>. Acceptance: <how it is checked>
 
 ## Out of scope
-- <explicitly excluded>
+- <excluded>
 
 ## Assumptions and open questions
 - <decided without confirmation; flip if wrong>

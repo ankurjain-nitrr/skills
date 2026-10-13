@@ -13,9 +13,9 @@ layout, follow it.
 | Document | Says | Template |
 |---|---|---|
 | `PRD.md` | What and why: goal, users, numbered requirements (`FR-n`, `NFR-n`) with checks, out of scope | [references/PRD.md](references/PRD.md) |
-| `HLD.md` | Architecture: components, data flow, interfaces and contracts, alternatives, decisions (ADR-style) | [references/HLD.md](references/HLD.md) |
+| `HLD.md` | Components and how they interact, cross-cutting concerns, alternatives, decisions; no code-level detail | [references/HLD.md](references/HLD.md) |
 | `LLD.md` | Per module: data models, signatures, algorithms, error handling, test plan by requirement | [references/LLD.md](references/LLD.md) |
-| `TRACKER.md` | Execution: one table row per requirement, slice and task, with status, dependencies, PR, dates | [references/TRACKER.md](references/TRACKER.md) |
+| `TRACKER.md` | Execution: work items (epic, story, task, sub-task, bug) as a tree, with status, phase, PR, dates | [references/TRACKER.md](references/TRACKER.md) |
 
 ## Layout
 
@@ -39,7 +39,8 @@ docs/changes/CR-<n>-<slug>/{PRD,HLD,LLD,TRACKER}.md         one folder per chang
 hoop is required. Check its MCP tools (`hoop_submit_markdown`, `hoop_feedback`, `hoop_export`) are
 available; if not, stop and ask the user to install it (`claude mcp add hoop -- hoop mcp`).
 
-1. Write or change the document locally, then submit it: `hoop_submit_markdown` with the file's
+1. Write or change the document locally and vet it with the `vet-docs` skill bundled with this
+   plugin (`/devloop:vet-docs`): fix its findings first. Then submit it: `hoop_submit_markdown` with the file's
    markdown (`channel: "github"` for team review). Give the user the URL and run
    `hoop wait <review_id>` in the background.
 2. Read the review with `hoop_feedback`. Answer instruction comments with `hoop_propose_edits`
@@ -56,7 +57,8 @@ cells are updated directly, in the PR that changes them.
 
 ## Tracker rules
 
-- One row per requirement, slice and task; `Parent` builds the hierarchy (task → slice → FR).
+- Rows are work items, not requirements; `Covers` references the PRD's requirements, and one
+  `Parent` per row builds the tree (epic → story → task → sub-task; bugs under what they affect).
 - Status is one of `todo`, `in progress`, `in review`, `blocked`, `done`, `dropped`; update the rows
   a slice touches in that slice's own PR, so the tracker on `main` matches what merged.
 - A CR's rows move into the project `TRACKER.md` when it folds; done rows stay as history.
