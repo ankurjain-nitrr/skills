@@ -12,6 +12,21 @@ an issue template), use it.
 Scale it to the change: a one-line bug fix needs one round and three lines; a new feature needs
 several rounds.
 
+## 0. Capture and queue
+
+Every request is first captured as a change request, in the requester's own words, and **queued**
+(`docs/changes/CR-<n>-<slug>/REQUEST.md`, see `/devloop:project-docs`; with hoop's change tools,
+`hoop cr create`). Requests that arrive while another change is in progress are queued, not folded
+in, unless the requester says so.
+
+Each time a request is queued, compare it with every other **queued** request: the same behavior,
+the same documents or files, conflicting goals, or one depending on another. Resolve each overlap
+(merge them, order them, split one, or drop a duplicate), write the resolution into both changes'
+notes and the tracker, and tell the requester what was decided, so they can change it. In-progress
+changes aren't re-opened; note any dependency on them instead.
+
+Scoping (the steps below) starts when a queued change is picked up.
+
 ## 1. Research before asking
 
 Don't ask what you can look up. Read the request, linked issues, and the code, tests and docs
