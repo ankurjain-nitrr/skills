@@ -73,6 +73,12 @@ linked with `hoop cr link-pr` is merged.
 - Status is one of `todo`, `in progress`, `in review`, `blocked`, `done`, `dropped`; update the rows
   a slice touches in that slice's own PR, so the tracker on `main` matches what merged.
 - A CR's rows move into the project `TRACKER.md` when it folds; done rows stay as history.
+- Every epic, story, task, sub-task and bug has a block under "Items" (`### <ID>: <title>`) with a
+  short description and its own definition of done. The definition fits the item's level. An
+  epic's is about outcomes, its stories and the fold. A story's is its acceptance criteria. A
+  task's is the specific change and its tests. A bug's starts with a test that reproduces it. Write
+  the block when the item is added, and don't mark the item done until every point in it holds.
+  The template in `references/TRACKER.md` shows the format.
 
 ## Fold a merged CR into the project docs
 
