@@ -193,6 +193,8 @@ Right after the CR's last PR merges, in its own PR (`docs/fold-cr-<n>`):
    little existing text as possible.
 2. Submit through hoop as a diff: `hoop_submit_markdown` with the current project document, then
    again with the folded version and the same `review_id`, so the reviewer reviews only what changed.
+   Don't pass a title. A passed title turns off exact spacing, so the export no longer matches the
+   file byte for byte.
 3. On approval, export and commit each document; set the CR's status to `folded`; open and merge the
    fold PR (it's docs-only, so devloop's self-review tier applies).
 

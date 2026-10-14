@@ -101,6 +101,10 @@ suite, named for the behavior it protects, so the defect can't come back unnotic
 such a test isn't done. If no automated test can reach the defect, say why in the PR and add the
 closest check that can.
 
+**A test for new behavior must fail on the base.** Run each new test against the base branch's code
+before the change, and see it fail. A test that passes there doesn't prove the requirement, so
+rewrite it until it does. Say in the PR that each new test fails on the base.
+
 **Requests that arrive mid-build** (new features, "also make it…") are new scope. Record each as a
 change-control delta via `/devloop:scope` and queue it for the next milestone; fold it into the
 current stack only if the user says so, and then re-plan the slices.
