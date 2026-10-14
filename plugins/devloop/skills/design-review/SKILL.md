@@ -19,8 +19,9 @@ findings.
 
 The review runs in hoop, with one agent per role. Each reviewer comments on the document itself,
 the owner answers in the threads, and the requester sees the whole discussion before approving.
-Every agent preloads the shared skills `devloop:principles`, `devloop:review-comments`,
-`devloop:hoop-review` and `devloop:writing`, so they all work by the same rules.
+Every agent preloads the shared skills `devloop:principles`, `devloop:review-comments` and
+`devloop:writing`, so they all work by the same rules. How to comment in hoop is documented in
+hoop's CLAUDE.md, in "Reviewing documents in hoop".
 
 ## 1. Roles
 
