@@ -89,7 +89,9 @@ inputs:
 Each reviewer checks its comments with the `writing-style` checker, then posts them to hoop with
 the verdict "comment" and returns a one-line summary. A reply can't be edited after it is posted,
 so the check comes first.
-No reviewer approves; only the requester does.
+An agent approves only through hoop's approval interface for agent approvers, once hoop has one.
+Until then an agent's approval would freeze the review, so agents only comment. Every comment, agent
+approval and requester approval stays on the document as its audit trail.
 
 ### The owner answers
 
