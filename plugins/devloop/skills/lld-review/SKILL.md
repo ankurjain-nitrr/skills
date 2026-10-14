@@ -17,6 +17,11 @@ agents" in `/devloop:project-docs` describes, and give each reviewer this skill.
   the HLD.
 - A **test plan** maps every requirement to tests at the right level (unit, integration,
   end to end), each with what it proves.
+- Its diagrams are written in Mermaid: a `sequenceDiagram` for detailed interactions, and a
+  `stateDiagram-v2` or `classDiagram` where a component has state or types. A diagram drawn any
+  other way is a finding, unless Mermaid can't express it.
+- It follows the template in `/devloop:project-docs` (`references/LLD.md`), and keeps it simple:
+  empty sections are left out.
 
 ## Checks against the change request, the approved PRD and the approved HLD
 

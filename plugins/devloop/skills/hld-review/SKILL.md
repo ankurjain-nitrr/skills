@@ -24,6 +24,11 @@ agents" in `/devloop:project-docs` describes, and give each reviewer this skill.
 - It holds **no code-level detail**. That means no source file names, function names, data
   structures, field lists, file formats, algorithms, environment variables or command flags. Each
   one found is a finding to move into the LLD.
+- Its diagrams are written in Mermaid: a `flowchart` for context, architecture and data flow, and a
+  `sequenceDiagram` for each key interaction. A diagram drawn any other way is a finding, unless
+  Mermaid can't express it.
+- It follows the template in `/devloop:project-docs` (`references/HLD.md`), and keeps it simple:
+  empty sections are left out.
 
 ## Checks against the change request and the approved PRD
 
