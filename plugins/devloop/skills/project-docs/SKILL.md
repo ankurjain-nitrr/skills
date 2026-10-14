@@ -105,6 +105,17 @@ each of its threads: agree, or say what still worries it. The owner answers agai
 thread that still disagrees gets the owner's reply "Decision: <what and why>." The reviewer
 disagrees and commits, and no third cycle runs.
 
+### Resolve every agent thread, then hand over
+
+The requester sees only what still needs them. So before the handover, every thread from the agent
+review is resolved, and the review tool shows resolved threads collapsed.
+- A reviewer resolves each of its threads that it agrees with, in its last cycle.
+- The owner resolves the rest, after its "Decision:" reply.
+- Resolve before the final revision is submitted. The tool's notes for the review, such as hoop's
+  CLAUDE.md, say how and why.
+- Never resolve a thread for the requester, and never edit a document after the requester approves
+  it. An approved review is frozen.
+
 ### Hand over to the requester
 
 Tell the requester the review's address and a short summary: how many comments each reviewer made,
