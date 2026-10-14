@@ -71,8 +71,9 @@ code in the HLD, requirements in the tracker.
 A change's PRD, HLD and LLD are each reviewed in hoop by persona agents before the requester sees
 them. Each document type has its own review skill, which names its owner, its reviewers and what
 they check. This section is the procedure all three share. Every agent preloads
-`devloop:principles`, `devloop:review-comments` and `devloop:writing-style`. How to comment in hoop
-is in hoop's CLAUDE.md, under "Reviewing documents in hoop".
+`devloop:principles`, `devloop:review-comments` and `devloop:writing-style`. Each agent's brief
+names the project's root folder. The agent reads every `CLAUDE.md` and README there first, along
+with the project documents. The project's guides say how to comment in hoop.
 
 ### Open the review in hoop
 
@@ -90,6 +91,7 @@ inputs:
   other's files and post each other's comments.
 - The paths of the change's `REQUEST.md`, `NOTES.md` and approved documents above this one.
 - The project's `docs/PRD.md`, `docs/HLD.md` and `docs/LLD.md`.
+- The project's root folder. The agent reads every `CLAUDE.md` and README in it before it reviews.
 - The document type's review skill: `/devloop:prd-review`, `/devloop:hld-review` or
   `/devloop:lld-review`. Reviewers also judge the work against `devloop:principles`.
 
