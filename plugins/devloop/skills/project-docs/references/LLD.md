@@ -2,15 +2,16 @@
 
 Status: <proposed | approved> · Revision: <n> · PRD: <approved revision> · HLD: <approved revision>
 
-This document says how each HLD component is built, so a team can build and test it without
-guessing. Diagrams are written in Mermaid.
+This document says how each HLD component is built, at the level a team needs to agree on before
+coding. Code-level detail is limited to new files, design patterns and the public interfaces
+between layers and packages. Logic inside a file is left to code review. Diagrams are in Mermaid.
 
 ## <Component>
 
-- Responsibility: <one sentence, and the files it adds or changes>.
-- Data model: <the types, fields and invariants it owns>.
-- Interface: <each function, endpoint or command, with inputs, outputs and errors>.
-- Behavior: <the main flow and each edge case>.
+- Responsibility: <one sentence>.
+- New files: <each new file and what it holds>.
+- Design pattern: <the pattern it uses, and why>.
+- States and errors: <the states it moves through, and how its errors reach callers>.
 
 ```mermaid
 stateDiagram-v2
@@ -18,19 +19,18 @@ stateDiagram-v2
   First --> Second: <event>
 ```
 
-## Interactions in detail
+## Public interfaces between layers
+
+- <Layer or package A> calls <B> through <interface>, with <inputs>, <outputs> and <errors>.
+- Data that crosses the boundary: <an API field or stored format, and who owns it>.
 
 ```mermaid
 sequenceDiagram
-  participant A as <Component A>
-  participant B as <Component B>
-  A->>B: <call with its arguments>
+  participant A as <Layer A>
+  participant B as <Layer B>
+  A->>B: <public call>
   B-->>A: <result or error>
 ```
-
-## Errors, logging and security
-
-- <What can fail, how it is retried or reported, what is logged, and what is checked>.
 
 ## Rollout and rollback
 
@@ -38,10 +38,10 @@ sequenceDiagram
 
 ## Test plan
 
-| Requirement | Test | Level |
+| Requirement | What the test proves | Level |
 |---|---|---|
-| FR-1 | <The test, and what it proves>. | <unit> |
+| FR-1 | <What behavior it shows>. | <unit> |
 
 ## Pull requests
 
-1. <The first slice, its files and its checks>.
+1. <The first slice, its new files and its checks>.
