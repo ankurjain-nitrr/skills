@@ -22,8 +22,9 @@ below starts before the freeze. After it, changes to what gets built go through 
 ## 2. Explore
 
 Read the code, tests and docs the change touches, beyond what scoping already covered. Don't edit
-anything yet. Find the test command and whether a pre-commit hook runs tests
-(`.pre-commit-config.yaml`, `.husky/`, `lefthook.yml`, `.git/hooks/pre-commit`).
+anything yet. Find the test command and whether a pre-commit hook runs tests. The stack references
+in [references/stacks/](references/stacks/README.md) say where to look for each language. If the
+repo's stack has no file there, add one.
 
 Preflight the environment now, not mid-slice: the runtime versions installed against what the
 project and its test tools need (a browser-test library may need a newer runtime than the app),
@@ -108,17 +109,17 @@ current stack only if the user says so, and then re-plan the slices.
 
 - **Tests:** if a pre-commit hook runs the tests, let it; otherwise run them directly before each
   commit. Never use `--no-verify` or skip failing tests. Don't install hooks without asking.
-  Gate on the test command's own exit status. A pipe such as `npm test | grep pass` reports the
-  last command's status, so a failing run can still commit. Save the output to a file instead.
+  Gate on the test command's own exit status. A pipe such as `<test command> | grep pass` reports
+  the last command's status, so a failing run can still commit. Save the output to a file instead.
 - **Size:** check before committing, not after: each PR changes at most **10 files and 500 lines**
   (additions plus deletions):
 
   ```sh
-  git diff --numstat <base>...HEAD -- . ':(exclude)*.lock' ':(exclude)package-lock.json'
+  git diff --numstat <base>...HEAD -- . ':(exclude)<lockfile>' ':(exclude)<generated path>'
   ```
 
-  Lockfiles, generated code and snapshots don't count toward the budget (extend the excludes for
-  the repo's generated paths), but list them in the PR.
+  Lockfiles, generated code and snapshots don't count toward the budget, but list them in the PR.
+  The stack reference names them for each language.
   If a slice goes over, split it further with `/devloop:slice` rather than raising the budget.
 - **Security** (when step 3 flagged it): servers check Host and Origin and refuse cross-site writes
   (a local API is reachable from any web page); every value put into HTML is escaped; IDs and
