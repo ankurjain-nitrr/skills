@@ -28,10 +28,10 @@ check before it is queued, against two things:
 - The **system as it is now**: the project's PRD, HLD and LLD, and the code where they don't say.
 
 The check gives one verdict, with its reasons. The verdicts are new, already done, partly done,
-duplicate of CR-n, and conflict with CR-n. Resolve each overlap by merging, ordering, splitting or dropping a duplicate.
-Record the verdict and the resolution on the change in hoop (as a revision with comments, where
-hoop supports it, otherwise in both changes' notes), and tell the requester what was decided, so
-they can change it. In-progress changes aren't reopened. Note any dependency on them instead.
+duplicate of CR-n, and conflict with CR-n. Resolve each overlap by merging, ordering, splitting or
+dropping a duplicate. Record the verdict and the resolution on the change in hoop, as a revision with
+comments. Until hoop supports that, record them in both changes' notes. Tell the requester what was
+decided, so they can change it. In-progress changes aren't reopened. Note any dependency on them instead.
 
 ## Keep each change small
 
