@@ -37,3 +37,7 @@ prose.
   disagrees and commits, and the thread stays as the record.
 - Every resolution is written in the thread on the document, so anyone can see why the document
   says what it says.
+
+## Who decides
+
+The owner of a piece of work decides. The requester's approval of the whole work is the last word.

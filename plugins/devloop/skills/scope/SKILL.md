@@ -1,9 +1,12 @@
 ---
 name: scope
-description: Captures and queues change requests as written (resolving overlaps with other queued ones), then scopes and freezes the functional requirements for a change with the user before any planning or code. Use when the user gives a new request or change request ("capture this", "queue it", "new CR"), and whenever a feature request is short or leaves behavior undecided ("add order export", "support refunds"), even if the user doesn't mention requirements; at the start of any new feature; or for "scope this", "requirements", "spec it out", "interview me" or "freeze the scope". Not for typo-level fixes or edits whose behavior is already fully specified.
+description: Scopes and freezes the functional requirements for a queued change with the user before any planning or code, by researching, asking wide then narrow questions, and writing them as testable requirements. Use when a queued change is picked up, whenever a feature request is short or leaves behavior undecided ("add order export", "support refunds"), or for "scope this", "requirements", "spec it out", "interview me" or "freeze the scope". Capturing and queueing a new request is `/devloop:intake`. Not for typo-level fixes or edits whose behavior is already fully specified.
 ---
 
 # Scope and freeze requirements
+
+This starts when a queued change is picked up. Capturing and queueing a request comes first, in
+`/devloop:intake`.
 
 Agree on *what* gets built before anyone decides *how*. The output is a short, frozen list of
 testable requirements. If the repo has its own spec format or location (`CLAUDE.md`, `docs/specs/`,
@@ -11,27 +14,6 @@ an issue template), use it.
 
 Scale it to the change: a one-line bug fix needs one round and three lines; a new feature needs
 several rounds.
-
-## 0. Capture and queue
-
-Every request is first captured as a change request, in the requester's own words, and **queued**
-with `hoop cr create` (or `hoop_cr_create`), which writes `docs/changes/CR-<n>-<slug>/REQUEST.md`
-byte for byte and adds the change to the tracker (see `/devloop:project-docs`). Classify it as
-epic, story, task or bug with a one-line reason; read `docs/changes/CLASSIFICATION.md` first, and
-when the requester corrects a type, record it with `hoop cr classify <CR> <type> --reason ... --why
-...` so later classifications learn from it. Requests that arrive while another change is in
-progress are queued, not folded in, unless the requester says so.
-
-Each time a request is queued, compare it with every other **queued** request: the same behavior,
-the same documents or files, conflicting goals, or one depending on another. Resolve each overlap
-(merge them, order them, split one, or drop a duplicate), write the resolution into both changes'
-notes and the tracker, and tell the requester what was decided, so they can change it. In-progress
-changes aren't re-opened; note any dependency on them instead.
-
-A bug report is captured the same way, with type bug. Its definition of done starts with a test
-that reproduces the bug and fails before the fix.
-
-Scoping (the steps below) starts when a queued change is picked up.
 
 ## 1. Research before asking
 
@@ -96,9 +78,9 @@ choice; split anything with "and". No open questions remain in a frozen spec.
 ## 5. Freeze
 
 Scope and write the PRD as the plugin's `senior-product-manager` agent would, or start that agent
-to write it. A principal product manager reviews it through `/devloop:design-review`.
+to write it. A principal product manager reviews it through the document type's review skill (`/devloop:prd-review`, `/devloop:hld-review` or `/devloop:lld-review`).
 
-Write the requirements as complete, simple sentences without dashes, following the `writing` skill bundled with this plugin (`/devloop:writing`).
+Write the requirements as complete, simple sentences without dashes, following the `writing-style` skill bundled with this plugin (`/devloop:writing-style`).
 The captured request in `REQUEST.md` keeps the requester's own words.
 
 Write the requirements as the change request's PRD, `docs/changes/CR-<n>-<slug>/PRD.md` (see

@@ -1,5 +1,5 @@
 ---
-name: fresh-review
+name: pr-review
 description: Gets a pull request reviewed by fresh-context reviewers that didn't write it, with a title and description a reviewer can work from, and resolves the findings before more work stacks on top. Use after opening a PR, before starting the next PR in a stack, before merging a stack, or for "get this PR reviewed", "review in a fresh session" or "independent review".
 ---
 

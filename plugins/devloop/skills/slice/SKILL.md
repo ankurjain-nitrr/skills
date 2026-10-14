@@ -48,7 +48,7 @@ of raising the budget.
 
 - Slice 1 branches from `origin/main` and targets `main`; each next slice branches from the one
   below and targets it (`gh pr create --base <branch below>`). Each passes the gates on its own,
-  and its fresh-session review (`/devloop:fresh-review`) is resolved before the next PR opens.
+  and its fresh-session review (`/devloop:pr-review`) is resolved before the next PR opens.
 - If `gh stack` is installed, use it (`gh stack submit`, `gh stack sync`). Otherwise use Git 2.38+:
 
   ```sh
@@ -67,7 +67,7 @@ of raising the budget.
   gh pr edit <next-pr> --base main
   ```
 
-PR titles, PR descriptions and task titles follow the `writing` skill bundled with this plugin (`/devloop:writing`): complete sentences in simple
+PR titles, PR descriptions and task titles follow the `writing-style` skill bundled with this plugin (`/devloop:writing-style`): complete sentences in simple
 language, with no dashes.
 
 Each slice is a tracker task. Its definition of done (in its block under "Items", see

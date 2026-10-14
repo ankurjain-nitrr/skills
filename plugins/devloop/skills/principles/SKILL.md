@@ -75,7 +75,7 @@ harmless.
 ## 8. Have backbone, then commit
 
 Disagree openly and with reasons while a question is open. Once the owner decides, commit fully.
-- In the work: the owner of a decision makes the final call, and records why.
+- In the work: when you make a call, record why, so others can follow and challenge it.
 - In a review: argue your view once with evidence, accept the owner's call, and don't reopen it
   without new facts.
 - Sources: Amazon's Have Backbone; Disagree and Commit, Databricks' "debate fast, plan fast, drive
@@ -103,7 +103,3 @@ Help the work move ahead, and make the people around you better.
 - In a review: pair every objection with a way forward. Write "this would work if" rather than
   "don't do this".
 - Sources: Amazon's Hire and Develop the Best and Deliver Results, Databricks' "We raise the bar".
-
-## Who decides
-
-The owner of a piece of work decides. The requester's approval of the whole work is the last word.
