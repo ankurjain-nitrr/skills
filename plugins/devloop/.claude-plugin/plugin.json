@@ -1,7 +1,7 @@
 {
   "name": "devloop",
   "description": "Plan-to-PR development loop: frozen requirements from a wide-to-narrow interview, a 10-line plan, a branch from main, API-first changes with tests, a test gate on every commit, PRs sliced vertically to at most 10 files and 500 lines (stacked when larger), concise current-state code docs, a README check before push, a pushed branch with a PR, and a fresh-context code review before the next PR",
-  "version": "0.24.2",
+  "version": "0.25.0",
   "author": {
     "name": "Ankur Jain"
   },
