@@ -15,6 +15,18 @@ an issue template), use it.
 Scale it to the change: a one-line bug fix needs one round and three lines; a new feature needs
 several rounds.
 
+## 0. The pick-up check
+
+The system may have moved since the request was captured. Before scoping, check the queued change
+again, against everything merged since it was captured and against the other queued changes. The
+outcome is one of these: proceed, shrink, merge into another change, drop, or a decision only the
+requester can make. Record it on the change in hoop as a new revision with comments, and tell the
+requester. A change that would now degrade behavior the system already has goes back to the
+requester before any scoping.
+
+Check its size again too. A change that needs more than five pull requests, or rewrites most of a
+component, is split into smaller changes that each ship working behavior.
+
 ## 1. Research before asking
 
 Don't ask what you can look up. Read the request, linked issues, and the code, tests and docs

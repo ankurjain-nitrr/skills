@@ -26,6 +26,9 @@ agents" in `/devloop:project-docs` describes, and give each reviewer this skill.
 - Its **non-functional requirements** are measurable and say how they are checked. An unmeasured
   target says so.
 - Every requirement can be traced to the user's request, and nothing is invented.
+- It lists every current behavior it changes or removes, with the existing requirement it affects.
+  The requester approves each such change explicitly, so the system never degrades quietly.
+- It is small: the change fits in about five pull requests and rewrites no whole component.
 
 ## Checks against the change request
 
