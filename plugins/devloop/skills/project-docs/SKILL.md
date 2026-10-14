@@ -86,7 +86,9 @@ inputs:
 - The document type's review skill: `/devloop:prd-review`, `/devloop:hld-review` or
   `/devloop:lld-review`. Reviewers also judge the work against `devloop:principles`.
 
-Each reviewer posts its comments to hoop with the verdict "comment" and returns a one-line summary.
+Each reviewer checks its comments with the `writing-style` checker, then posts them to hoop with
+the verdict "comment" and returns a one-line summary. A reply can't be edited after it is posted,
+so the check comes first.
 No reviewer approves; only the requester does.
 
 ### The owner answers
