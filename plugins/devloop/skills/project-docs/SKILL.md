@@ -57,6 +57,13 @@ code in the HLD, requirements in the tracker.
 - Every item has a **description block** under "Items" with its own **definition of done**, at its
   own level. Flag a missing block, a definition copied from a higher or lower level (a task that
   says "users can export orders", an epic that says "tests pass"), and a point no one could check.
+- A description says **what is expected**, not only what the item is called. An epic, story or
+  task block has a why, what is expected, what is out of scope and the definition of done. A
+  task's block also names the files it touches and how to check it. Then someone else could build
+  and verify the task from its block alone. Flag a block that only restates its title.
+- A task's **size** is counted from the files its block names. Those include tests, type
+  declarations, styles and the tracker. Once the task merges, the row holds the actual size. Notes
+  say why when the estimate was off by more than half.
 - Status, phase and dates are current; nothing is `done` without its PR.
 
 ## Review in hoop with persona agents

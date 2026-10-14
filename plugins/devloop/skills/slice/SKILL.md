@@ -39,6 +39,18 @@ lands soon. Show the map with the plan and get it approved together:
 3/3  feat/export-filters   FR-3,FR-4  date and status filters, 400 on bad input ~4 files, ~200 lines
 ```
 
+Before showing the map, check the breakdown and fix what fails:
+
+- Each task's title names one outcome. A title such as "finish the page details" is a grab bag,
+  so split it by outcome.
+- Each task delivers or protects a requirement, and can be checked on its own once it merges. A
+  task that covers more than three requirements is split, or its block says why it can't be.
+- No task holds only tests at the end. A check for a non-functional requirement lands with the
+  task that makes it true. A shared check harness goes first, so it guards the later tasks.
+- Each task's block says what it leaves out and which task takes it, so gaps and overlaps show.
+- Count each task's files by name, from the LLD's new files, the files it changes, tests, type
+  declarations, styles and the tracker. Plan at most 8 files, which leaves room for review fixes.
+
 Add the map to the change's `TRACKER.md` (`/devloop:project-docs`): a row per slice, parented to
 its requirements, with its estimated size. Estimate each slice's files from the plan, and count
 again before every commit (step 7 in devloop). If a slice grows past the budget while you build it, split it again along the same lines instead

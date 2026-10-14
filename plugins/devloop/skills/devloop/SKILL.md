@@ -108,6 +108,8 @@ current stack only if the user says so, and then re-plan the slices.
 
 - **Tests:** if a pre-commit hook runs the tests, let it; otherwise run them directly before each
   commit. Never use `--no-verify` or skip failing tests. Don't install hooks without asking.
+  Gate on the test command's own exit status. A pipe such as `npm test | grep pass` reports the
+  last command's status, so a failing run can still commit. Save the output to a file instead.
 - **Size:** check before committing, not after: each PR changes at most **10 files and 500 lines**
   (additions plus deletions):
 
@@ -195,7 +197,11 @@ fixes. Unit tests passing is not acceptance.
    (`/devloop:project-docs`, "Fold"), and set the change's status to `folded`.
 5. Run the `reflect` skill if installed: decisions, the why behind them, and gotchas from this
    milestone go into the repo's `CLAUDE.md`.
-6. Report, then stop. New scope starts as a new devloop from step 1.
+6. Look back on the breakdown. Compare each task's estimated size with its actual size. Count the
+   fresh review's findings in each pull request. An estimate may be off by more than half, or
+   reviews may find the same kind of defect twice. Then propose one change to devloop or to the
+   repo's `CLAUDE.md`, and record it in the epic's Notes.
+7. Report, then stop. New scope starts as a new devloop from step 1.
 
 Report: requirements covered (and deltas approved after the freeze), plan lines done, tests and the
 acceptance run with results, review findings and how each was resolved, size per PR, merged PRs,
