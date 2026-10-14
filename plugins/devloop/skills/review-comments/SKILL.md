@@ -1,22 +1,12 @@
-# How reviews run
+---
+name: review-comments
+description: How to write a good review comment and how to answer one, for any document or change in any field. It covers labels, blocking or not, one point per comment, a way forward, the two-cycle limit and the owner's final decision. Use when reviewing a document or a change, when answering review comments, or for "how should I phrase this comment".
+---
 
-These rules apply to every review of a document, in any field. Authors and reviewers both follow
-them.
+# Review comments
 
-## Principles
-
-- **Customer obsession:** Judge every point by its effect on the people the work is for. Say who is
-  affected and how.
-- **Bias for action:** Prefer a decision now that can be changed later over waiting for certainty.
-  Name the decisions that would be hard to undo, and slow down only for those.
-- **Iteration over perfection:** Ask for what the next version needs, and leave the rest for later
-  versions. A good next step beats a perfect plan.
-- **Enablement over blockers:** Say what would let the work move ahead, not only what is wrong.
-  Instead of "don't do this", write "this would work if" or "a smaller first step is".
-- **Disagree and commit:** Argue your view clearly while the question is open. Once the owner
-  decides, support the decision fully and don't reopen it without new facts.
-- **The owner decides:** The document's author owns it and makes the final call on every comment.
-  The requester's approval of the whole document is the last word.
+These rules work for any review, whatever the subject: requirements, designs, code, policies or
+prose.
 
 ## Traits of a good review comment
 
@@ -25,8 +15,9 @@ them.
 2. **It makes one point.** Split a comment that raises two things.
 3. **It is anchored and specific.** Put it on the exact line or words it is about, and quote the
    source it relies on, such as a requirement or a decision.
-4. **It says why.** Explain the effect on the people the work is for, or on the goal, not only the
-   rule it breaks.
+4. **It says why.** Explain the effect on the people the work is for, or on the goal. A blocking
+   comment names the principle it rests on, from `devloop:principles`, such as "Start from the
+   customer" or "Do the simple thing that works".
 5. **It offers a way forward.** Pair every issue with a suggestion, a smaller step or a question
    that would settle it.
 6. **It asks when unsure.** Use a question when you aren't sure there is a problem.
@@ -34,7 +25,7 @@ them.
 8. **It is short.** A reader should get the point in one pass.
 9. **It praises what is good, truthfully.** Note a strong choice when there is one, never as filler.
 
-## Rounds and the final call
+## Answering a comment, rounds and the final call
 
 - A cycle is one comment or reply from a reviewer and one answer from the owner.
 - Each reviewer gets at most two cycles on a thread. After that, the owner makes the call.

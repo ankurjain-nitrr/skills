@@ -42,7 +42,7 @@ when the tools aren't loaded. If neither is available, stop and ask the user to 
 (`claude mcp add hoop -- hoop mcp`).
 
 1. Write the document as its owner: a PRD as the `senior-product-manager` agent, an HLD as the
-   `staff-engineer` agent and an LLD as the `senior-engineer` agent (`references/ROLES.md`). Vet it
+   `staff-engineer` agent and an LLD as the `senior-engineer` agent (each in this plugin's `agents/`). Vet it
    with `/devloop:vet-docs` and fix its findings. Then submit it, linked to its change:
    `hoop submit <file> --cr <CR> --doc <prd|hld|lld>` (or `hoop_submit_markdown` with `change`;
    `--channel github` for team review). A refusal names what to approve first.

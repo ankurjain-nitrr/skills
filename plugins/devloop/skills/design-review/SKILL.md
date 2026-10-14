@@ -19,8 +19,8 @@ findings.
 
 The review runs in hoop, with one agent per role. Each reviewer comments on the document itself,
 the owner answers in the threads, and the requester sees the whole discussion before approving.
-The rules for principles, good comments, cycles and the owner's call are in
-`references/REVIEWING.md`.
+Every agent preloads the shared skills `devloop:principles`, `devloop:review-comments`,
+`devloop:hoop-review` and `devloop:writing`, so they all work by the same rules.
 
 ## 1. Roles
 
@@ -31,7 +31,8 @@ The rules for principles, good comments, cycles and the owner's call are in
 | LLD | `senior-engineer` | `staff-engineer`, `engineer-l4` |
 
 The owner writes the document and makes the final call on every comment. Write the document as the
-owner agent, or in its role yourself, as `../project-docs/references/ROLES.md` describes.
+owner agent, or in its role yourself. Each agent file in this plugin's `agents/` folder defines its
+role.
 
 ## 2. Open the review in hoop
 
@@ -47,7 +48,7 @@ inputs:
 - The review ID and the hoop address.
 - The paths of the change's `REQUEST.md`, `NOTES.md` and approved documents above this one.
 - The project's `docs/PRD.md`, `docs/HLD.md` and `docs/LLD.md`.
-- The checks below, and `references/REVIEWING.md`.
+- The checks below. Reviewers also judge the work against `devloop:principles`.
 
 Each reviewer posts its comments to hoop with the verdict "comment" and returns a one-line summary.
 No reviewer approves; only the requester does.
