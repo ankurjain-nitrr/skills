@@ -35,6 +35,79 @@ lines. They are written and approved strictly in order. Don't write the HLD unti
 approved, or the LLD until the HLD is. hoop enforces this when each review is linked to its change,
 and when an approved document is revised, the documents after it need approval again.
 
+## Standards for each document
+
+The standards for a PRD, an HLD and an LLD are in `/devloop:prd-review`, `/devloop:hld-review` and
+`/devloop:lld-review`, and the tracker's are below. Before a document goes to review, its owner
+checks it against its standards and fixes what fails. A document isn't ready until `/devloop:writing-style`'s checker reports nothing. Then read
+it as a demanding reviewer would.
+
+Each document has one job. Most problems are content at the wrong level: a solution in the PRD,
+code in the HLD, requirements in the tracker.
+
+### Tracker: work items, not requirements
+
+- Rows are **work items**: epics, stories, tasks, sub-tasks and bugs. Requirements live in the PRD
+  and are referenced from the items that deliver them, not copied in as rows.
+- One **parent** per row, so the hierarchy is a tree (epic → story → task → sub-task; a bug under
+  the item it affects).
+- Stories meet **INVEST** (independent, negotiable, valuable, estimable, small, testable) and state
+  the user value; a story with no user benefit is a task.
+- Each story or bug has **acceptance criteria**, or points to the PRD's.
+- Every item has a **description block** under "Items" with its own **definition of done**, at its
+  own level. Flag a missing block, a definition copied from a higher or lower level (a task that
+  says "users can export orders", an epic that says "tests pass"), and a point no one could check.
+- Status, phase and dates are current; nothing is `done` without its PR.
+
+## Review in hoop with persona agents
+
+A change's PRD, HLD and LLD are each reviewed in hoop by persona agents before the requester sees
+them. Each document type has its own review skill, which names its owner, its reviewers and what
+they check. This section is the procedure all three share. Every agent preloads
+`devloop:principles`, `devloop:review-comments` and `devloop:writing-style`. How to comment in hoop
+is in hoop's CLAUDE.md, under "Reviewing documents in hoop".
+
+### Open the review in hoop
+
+Submit the document linked to its change. The command is
+`hoop submit <file> --cr <CR> --doc <prd|hld|lld>`. Note the review ID. To review a revision of
+an approved document, open a new review in two steps. Its first revision is the approved text, and
+its second is the new one. Then the threads sit on what changed.
+
+### Cycle one: reviewers comment
+
+Start every reviewer agent for the document at once, each in a fresh context. Give each one these
+inputs:
+- The review ID and the hoop address.
+- The paths of the change's `REQUEST.md`, `NOTES.md` and approved documents above this one.
+- The project's `docs/PRD.md`, `docs/HLD.md` and `docs/LLD.md`.
+- The document type's review skill: `/devloop:prd-review`, `/devloop:hld-review` or
+  `/devloop:lld-review`. Reviewers also judge the work against `devloop:principles`.
+
+Each reviewer posts its comments to hoop with the verdict "comment" and returns a one-line summary.
+No reviewer approves; only the requester does.
+
+### The owner answers
+
+As the owner, read the comments with `hoop feedback <review_id>`. Answer every thread with
+`hoop reply`: accept and change the document, decline with a reason, or ask. Submit document changes
+as a new revision with `hoop submit <file> --review <review_id>`, or as tracked changes with
+`hoop propose`. Check the writing again before each revision.
+
+### Cycle two, then the owner's call
+
+Start each reviewer whose threads got an answer once more, with the review ID. It replies once on
+each of its threads: agree, or say what still worries it. The owner answers again. After that, a
+thread that still disagrees gets the owner's reply "Decision: <what and why>." The reviewer
+disagrees and commits, and no third cycle runs.
+
+### Hand over to the requester
+
+Tell the requester the review's address and a short summary: how many comments each reviewer made,
+how many were accepted or declined, and each "Decision:". The requester reads the threads on the
+document and approves, comments or requests changes. A requester's comment starts a new cycle with
+the owner.
+
 ## Every change goes through hoop
 
 hoop is required: its MCP tools, or the same operations as `hoop` terminal commands (`hoop help`)
@@ -42,11 +115,12 @@ when the tools aren't loaded. If neither is available, stop and ask the user to 
 (`claude mcp add hoop -- hoop mcp`).
 
 1. Write the document as its owner: a PRD as the `senior-product-manager` agent, an HLD as the
-   `staff-engineer` agent and an LLD as the `senior-engineer` agent (each in this plugin's `agents/`). Vet it
-   with `/devloop:vet-docs` and fix its findings. Then submit it, linked to its change:
+   `staff-engineer` agent and an LLD as the `senior-engineer` agent (each in this plugin's `agents/`). Check it against
+   its standards in its review skill and fix what fails. Then submit it, linked to its change:
    `hoop submit <file> --cr <CR> --doc <prd|hld|lld>` (or `hoop_submit_markdown` with `change`;
    `--channel github` for team review). A refusal names what to approve first.
-2. For a change's PRD, HLD or LLD, run `/devloop:design-review`. Its reviewer agents comment on the
+2. For a change's PRD, HLD or LLD, run its review as "Review in hoop with persona agents" above
+   describes, with `/devloop:prd-review`, `/devloop:hld-review` or `/devloop:lld-review`. Its reviewer agents comment on the
    document in hoop, the owner answers in the threads for at most two cycles, and the owner makes
    the final call on what stays open. Then give the user the URL and run `hoop wait <review_id>` in
    the background.
@@ -59,7 +133,7 @@ when the tools aren't loaded. If neither is available, stop and ask the user to 
    unchanged. Record the
    review in `docs/.hoop.json` (`{ "<path>": "<review_id>" }`) for traceability.
 
-All text in these documents and in tracker items follows the `writing` skill bundled with this plugin (`/devloop:writing`): complete
+All text in these documents and in tracker items follows the `writing-style` skill bundled with this plugin (`/devloop:writing-style`): complete
 sentences, simple language and no dashes. A tracker item's title is a sentence. `REQUEST.md` is
 exempt because it keeps the requester's words.
 

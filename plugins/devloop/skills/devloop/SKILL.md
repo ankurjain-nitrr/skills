@@ -10,11 +10,12 @@ say otherwise (branch names, test commands, PR template), follow them. `main` be
 default branch (`git symbolic-ref refs/remotes/origin/HEAD`; if unset, `git remote set-head origin -a`).
 
 Everything written along the way (requirements, design documents, tracker items, plan lines,
-commit messages, and PR titles and descriptions) follows the `writing` skill bundled with this plugin (`/devloop:writing`).
+commit messages, and PR titles and descriptions) follows the `writing-style` skill bundled with this plugin (`/devloop:writing-style`).
 
-## 1. Scope and freeze
+## 1. Intake, then scope and freeze
 
-Run the `scope` skill bundled with this plugin (`/devloop:scope`): research, ask questions from
+Every request is first captured and queued with `/devloop:intake`. When a queued change is picked
+up, run the `scope` skill bundled with this plugin (`/devloop:scope`): research, ask questions from
 wide to narrow, and freeze numbered requirements (`FR-1`, ...) with the user's approval. Nothing
 below starts before the freeze. After it, changes to what gets built go through its change control.
 
@@ -36,9 +37,10 @@ Using the `project-docs` skill bundled with this plugin (`/devloop:project-docs`
 
 - If the project has no `docs/PRD.md`, `HLD.md`, `LLD.md` and `TRACKER.md`, bootstrap them first.
 - Every change gets a PRD, HLD and LLD, sized to it, each approved through hoop before the next is
-  written, and all three before planning. Each is written by its owner agent and vetted with
-  `/devloop:vet-docs`. Then `/devloop:design-review` runs its reviewer agents, which comment on the
-  document in hoop before the user approves it. Link each review to the change (`--cr`, `--doc`) so hoop
+  written, and all three before planning. Each is written by its owner agent to the
+  standards in its review skill. That skill (`/devloop:prd-review`, `/devloop:hld-review` or
+  `/devloop:lld-review`) then runs its reviewer agents, which comment on the document in hoop before
+  the user approves it. Link each review to the change (`--cr`, `--doc`) so hoop
   holds the order. Record steps with `hoop cr step` and show `hoop cr show <CR>` when reporting.
 
 ## 3. Plan: at most 10 lines
@@ -159,7 +161,7 @@ debug leftovers, a requirement without a test, contract changes the user hasn't 
 
 ## 10. Fresh-context review
 
-Run the `fresh-review` skill bundled with this plugin (`/devloop:fresh-review`). Scale it to risk:
+Run the `pr-review` skill bundled with this plugin (`/devloop:pr-review`). Scale it to risk:
 
 - **Always:** before merging, review the whole stack (`main...<top branch>`) with a fresh-context
   reviewer, fix every finding in follow-up slices with a regression test for each (step 6), and

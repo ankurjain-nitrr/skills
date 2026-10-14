@@ -10,7 +10,7 @@ this conversation or the old version. History belongs in version control. If the
 `CLAUDE.md` or style guide sets comment rules, follow them.
 
 Write comments in simple language, as complete sentences, without em or en dashes, following
-the `writing` skill bundled with this plugin (`/devloop:writing`).
+the `writing-style` skill bundled with this plugin (`/devloop:writing-style`).
 
 ## Rules
 

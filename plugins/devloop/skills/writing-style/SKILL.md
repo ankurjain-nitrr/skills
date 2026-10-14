@@ -1,5 +1,5 @@
 ---
-name: writing
+name: writing-style
 description: The writing rules for every project document and work item (PRD, HLD, LLD, tracker items, and task and PR titles and descriptions). Text must be complete sentences in simple language with no em or en dashes, and a script checks it. Use whenever writing or editing any of these, before submitting one for review, or for "check the writing", "writing rules" or "lint the docs". The other devloop skills apply it; it does not apply to a requester's own words in REQUEST.md.
 ---
 
