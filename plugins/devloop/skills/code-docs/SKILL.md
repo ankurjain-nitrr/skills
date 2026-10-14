@@ -34,7 +34,7 @@ the `writing-style` skill bundled with this plugin (`/devloop:writing-style`).
 | Instead of | Write |
 |---|---|
 | `// Changed to batch inserts; the previous loop was too slow` | `// Batch inserts: one round trip per 500 rows` (or nothing) |
-| `// Moved to utils.ts so it can be unit tested (Task 8)` | nothing |
+| `// Moved to the helpers module so it can be unit tested (Task 8)` | nothing |
 | `// Loop over orders and sum the totals` | nothing |
 | `// The user asked for it gone.` | nothing |
 | 5-line block explaining a one-line guard | `// Upstream sends 200 with an empty body on timeout` |

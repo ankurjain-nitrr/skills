@@ -13,15 +13,16 @@ this one where they differ.
 
 Don't work from a remembered list: versions get added. Scan the repo for every pinned version:
 
-- Build files and lockfiles: `package.json`, `pyproject.toml`, `requirements*.txt`, `go.mod`,
-  `Cargo.toml`, `pom.xml`, `build.gradle*`, `gradle/libs.versions.toml`, `Gemfile`, and so on.
-- Build plugins and build-tool wrappers (`gradle-wrapper.properties`, `.mvn/wrapper`,
-  `packageManager` fields).
-- Language runtime and toolchain: toolchain blocks, compiler release or target flags, `.nvmrc`,
-  `.python-version`, `.tool-versions`, `engines`, `rust-toolchain*`.
+- Build files and lockfiles.
+- Build plugins and build-tool wrappers.
+- Language runtime and toolchain: toolchain blocks, compiler release or target flags and runtime
+  version files.
 - CI: action refs (`uses: owner/repo@vN`), runtime versions in setup steps, job images.
 - Containers: `FROM` lines, compose images, and scripts or tests that assert a runtime version.
 - Docs: install and setup snippets in READMEs that repeat any of the above.
+
+[references/ecosystems.md](references/ecosystems.md) names these files for each ecosystem. Add a
+section there for an ecosystem it doesn't cover yet.
 
 Record each version and every file and line it appears in. A version repeated in several places
 must stay identical in all of them.
@@ -31,9 +32,9 @@ move with their parent. Don't add pins the project doesn't have.
 
 ## 2. Find the latest stable release
 
-Ask the source of truth, not memory: the package registry's metadata (Maven Central
-`maven-metadata.xml`, npm, PyPI JSON, crates.io, Go proxy, the Gradle plugin portal), the tool's own
-release endpoint, GitHub `releases/latest` for actions, and the official image registry for tags.
+Ask the source of truth, not memory. That is the package registry's metadata or the tool's own
+release endpoint. Actions use GitHub `releases/latest`, and images use the official registry. The
+ecosystem reference names each registry.
 
 - Stable means no alpha, beta, RC, milestone, snapshot, preview, nightly or EA builds.
 - Metadata lists aren't always sorted; compare versions instead of taking the last entry.
