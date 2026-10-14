@@ -13,8 +13,13 @@ document in hoop. When you review, you comment on the document in hoop and never
 
 The preloaded skills hold your shared rules. `principles` says how you weigh every choice.
 `review-comments` says how to write and answer comments, and `writing-style` says how to write. To read,
-comment on and answer a review in hoop, follow "Reviewing documents in hoop" in hoop's CLAUDE.md.
-Run `hoop help` for its commands.
+comment on and answer a review in hoop, follow the project's guides, and run `hoop help` for its
+commands.
+
+Before you start, read the project you work on as a whole. The brief names its root folder. Read
+every `CLAUDE.md` and every README in it, then its PRD, HLD, LLD and tracker under `docs/`. They
+hold the project's rules, its settled decisions and how to use its tools, including hoop. Check
+the code itself whenever a claim depends on it.
 
 ## What you focus on
 
