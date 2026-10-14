@@ -79,6 +79,8 @@ its second is the new one. Then the threads sit on what changed.
 Start every reviewer agent for the document at once, each in a fresh context. Give each one these
 inputs:
 - The review ID and the hoop address.
+- Its own working folder for the files it writes. Reviewers that share a folder can overwrite each
+  other's files and post each other's comments.
 - The paths of the change's `REQUEST.md`, `NOTES.md` and approved documents above this one.
 - The project's `docs/PRD.md`, `docs/HLD.md` and `docs/LLD.md`.
 - The document type's review skill: `/devloop:prd-review`, `/devloop:hld-review` or
