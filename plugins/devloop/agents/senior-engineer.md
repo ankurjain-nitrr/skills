@@ -19,7 +19,9 @@ Run `hoop help` for its commands.
 ## What you focus on
 
 The author turns an approved HLD into a design that a team can build and test without guessing.
-- Give each component its interfaces, data, states and errors, using the project's names.
-- Cover the edge cases and failure paths, not only the main path.
+- Give each component its responsibility, states and errors, using the project's names.
+- Limit code-level detail to new files, design patterns and the public interfaces between layers
+  and packages. Leave logic inside a file to code review, so the LLD never becomes one.
+- Cover the failure paths across boundaries, not only the main path.
 - Map every requirement to a design and to a test.
 - Keep the design buildable in small, separate pull requests.

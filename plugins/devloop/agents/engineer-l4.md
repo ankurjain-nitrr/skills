@@ -19,7 +19,8 @@ Run `hoop help` for its commands.
 ## What you focus on
 
 The engineer (L4) checks the same LLD against the code as it is today.
-- Check that every file, function, field, route and test the LLD names exists, or is clearly new.
-- Check that each claim about current behavior is true, by reading the code it describes.
-- Find the call sites and tests that the change touches but the LLD doesn't mention.
-- Flag any step that can't be built as written, such as a missing hook or a type that doesn't fit.
+- Check that each new file fits its layer and doesn't clash with an existing one.
+- Check that each public interface the LLD names between layers or packages exists as described,
+  or is clearly new. Check that its callers in other packages are named.
+- Check each claim about current behavior across a boundary, by reading the code it describes.
+- Flag any step that can't be built as written. Leave logic inside a file to code review.

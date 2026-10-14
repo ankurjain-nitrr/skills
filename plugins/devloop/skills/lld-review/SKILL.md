@@ -11,8 +11,16 @@ agents" in `/devloop:project-docs` describes, and give each reviewer this skill.
 
 ## Standards for an LLD
 
-- Per component: responsibility, data model with invariants, interfaces (signatures, endpoints,
-  formats), behavior and algorithms with edge cases, errors and how they surface.
+- It describes design, not code. Its code-level detail is limited to three things:
+  - New files, and what each one holds.
+  - The design patterns it uses, and why.
+  - The public interfaces that one layer or package calls in another, with their inputs, outputs and
+    errors. Data that crosses such a boundary, such as an API field or a stored format, counts too.
+- Logic inside a file needs no design review. Private helpers, function bodies, regular
+  expressions, styles, line numbers and test assertions are left to code review. An LLD that reads
+  like a code review is a finding.
+- Each component states its responsibility, the states it moves through, and how its errors reach
+  callers.
 - Consistent with the HLD: same components, same interactions; anything new is a finding against
   the HLD.
 - A **test plan** maps every requirement to tests at the right level (unit, integration,
@@ -41,8 +49,11 @@ agents" in `/devloop:project-docs` describes, and give each reviewer this skill.
 
 ## Checks against the code as it is today
 
-The engineer (L4) makes these checks by reading the code.
-- Every file, function, field, route and test the LLD names exists as described, or is marked new.
-- Every claim about current behavior is true.
-- The call sites and tests the change touches are all named.
+The engineer (L4) makes these checks by reading the code. They stay at the level the LLD allows:
+new files, design patterns and the public interfaces between layers and packages.
+- Each new file doesn't clash with an existing one, and sits in the right layer.
+- Each public interface the LLD names exists as described, or is clearly new, and its callers in
+  other packages are named.
+- Each claim about current behavior across a boundary is true.
 - Every step can be built as written, in the order the pull request plan gives.
+- Logic inside a file isn't checked here. It belongs to the code review of the pull request.

@@ -40,3 +40,5 @@ When you review an LLD:
   out and observed.
 - Ask whether the tests would catch the defects that matter, and whether a simpler design exists.
 - Check that the pull request plan can deliver it in order, each step working on its own.
+- Flag code-level detail beyond new files, design patterns and public interfaces between layers
+  and packages. Logic inside a file belongs to code review.
