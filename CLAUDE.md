@@ -1,7 +1,8 @@
 # CLAUDE.md
 
 Plugin marketplace `ankurjain-skills`; layout in `README.md`. Write and improve skills with the
-create-skill plugin; dev-workflow skills belong in `devloop` as subskills.
+create-skill plugin. Dev-workflow skills belong in `devloop`, which lives in the hoop repository
+(`ankurjain-nitrr/hoop`, marketplace `hoop`), because devloop always runs on hoop.
 
 ## After changing a plugin
 
