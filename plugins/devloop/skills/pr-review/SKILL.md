@@ -36,6 +36,12 @@ Use the first that applies:
    re-review (the plugin skips PRs it already reviewed), use the built-in
    `/code-review <pr-number> --comment`.
 
+When you brief a reviewer yourself, always ask it to probe two areas, because most defects in
+reviews sit there:
+- Failure paths: crashes, timeouts, bad or huge input, and a tool or file that's missing.
+- What crosses each trust boundary: paths and secrets that reach a page or a log. Text from users
+  or documents that reaches markup, a shell or a command.
+
 For risky slices (security, data migration, public API), suggest the user run
 `/code-review ultra <pr-number>`, a deeper cloud review that only the user can start.
 
