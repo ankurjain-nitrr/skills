@@ -140,6 +140,10 @@ hoop is required: its MCP tools, or the same operations as `hoop` terminal comma
 when the tools aren't loaded. If neither is available, stop and ask the user to install it
 (`claude mcp add hoop -- hoop mcp`).
 
+Agents never edit hoop's own config in the user's hoop folder, such as `~/.hoop/config.json`. Only
+the user changes it. When hoop says a check command isn't allowed, show the user the entry hoop
+gives and ask them to add it.
+
 1. Write the document as its owner: a PRD as the `senior-product-manager` agent, an HLD as the
    `staff-engineer` agent and an LLD as the `senior-engineer` agent (each in this plugin's `agents/`). Check it against
    its standards in its review skill and fix what fails. Then submit it, linked to its change:
