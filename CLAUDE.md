@@ -1,8 +1,10 @@
 # CLAUDE.md
 
 Plugin marketplace `ankurjain-skills`; layout in `README.md`. Write and improve skills with the
-create-skill plugin. Dev-workflow skills belong in `devloop`, which lives in the hoop repository
-(`ankurjain-nitrr/hoop`, marketplace `hoop`), because devloop always runs on hoop.
+create-skill plugin. Dev-workflow skills belong in `devloop`. Its only tie to hoop
+(`ankurjain-nitrr/hoop`) is that every decision and approval goes to a person through hoop's tools;
+keep hoop's internals out of it. Only people review documents: no reviewer agents, no fixed
+document templates.
 
 ## After changing a plugin
 

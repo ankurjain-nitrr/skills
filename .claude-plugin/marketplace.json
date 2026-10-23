@@ -19,6 +19,11 @@
       "name": "create-skill",
       "source": "./plugins/create-skill",
       "description": "Create a new agent skill or improve an existing one: dedup against existing skills, pick the right placement, write to the official authoring rules, test with and without the skill, review against a checklist, and package for a plugin marketplace"
+    },
+    {
+      "name": "devloop",
+      "source": "./plugins/devloop",
+      "description": "A development loop from request to small, tested, reviewed pull requests, where every decision and approval goes to a person through hoop"
     }
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "name": "devloop",
+  "description": "A development loop from request to small, tested, reviewed pull requests, where every decision and approval goes to a person through hoop",
+  "version": "1.0.0",
+  "author": {
+    "name": "Ankur Jain"
+  },
+  "repository": "https://github.com/ankurjain-nitrr/skills"
+}
