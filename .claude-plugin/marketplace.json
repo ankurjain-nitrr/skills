@@ -6,6 +6,15 @@
   },
   "plugins": [
     {
+      "name": "hoop",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/ankurjain-nitrr/hoop.git",
+        "path": "plugins/hoop"
+      },
+      "description": "Review what Claude writes the way you review code: hoop's MCP server, a skill for building a document together, and hooks for plan review, pull requests and the Work view"
+    },
+    {
       "name": "reflect",
       "source": "./plugins/reflect",
       "description": "End-of-session retrospective that turns this session's corrections, dead ends and decisions into concise, correctly placed instructions so future sessions spend fewer tokens"
