@@ -10,6 +10,9 @@ requirements the user approved. If the repo has its own spec format or location,
 
 Scale it to the change: a one-line bug fix needs three lines; a new feature needs several rounds.
 
+A request with no issue yet goes through `/devloop:intake` first, so it's filed and reconciled with
+the backlog. Scope starts from that issue.
+
 ## 1. Research before asking
 
 Don't ask what you can look up. Read the request, linked issues, and the code, tests and docs around

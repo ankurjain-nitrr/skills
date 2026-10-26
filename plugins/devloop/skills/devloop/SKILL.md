@@ -24,6 +24,12 @@ hoop keeps a document only while it is under review. When the approved text shou
 document asks where it goes (a file in this project, a Google Doc, or nowhere), and you save it
 there after approval with `hoop export`.
 
+## 0. Intake
+
+Every request first goes through `/devloop:intake`: researched, reconciled with the existing
+issues, and filed or merged as bug or enhancement issues in build order. Nothing is built from a
+request the user hasn't asked to build; when they do, scope starts from its issue.
+
 ## 1. Scope
 
 Run `/devloop:scope`: research, then agree on numbered, testable requirements (`FR-1`, ...) with the
@@ -79,8 +85,8 @@ reach it, say why in the PR.
 **A test for new behavior must fail on the base.** Run it against the base branch's code and see it
 fail; a test that passes there doesn't prove the requirement.
 
-**Requests that arrive mid-build** are new scope: ask the user whether to fold them in or keep them
-for later.
+**Requests that arrive mid-build** go through `/devloop:intake` and stay out of the current work,
+unless the user says to fold them in.
 
 ## 7. Gates (before every commit and push)
 

@@ -1,7 +1,7 @@
 {
   "name": "devloop",
   "description": "A development loop from request to small, tested, reviewed pull requests, where every decision and approval goes to a person through hoop",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": {
     "name": "Ankur Jain"
   },
