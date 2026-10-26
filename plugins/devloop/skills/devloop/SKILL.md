@@ -20,6 +20,11 @@ Pick each document's shape for the task: no fixed templates. A question that nee
 answer goes in the document as a section headed `Question: ...` with lettered options and your
 recommendation, so the user answers on the page.
 
+Write for the person deciding: behaviour, choices and how each will be checked. File names,
+functions and line counts belong in the pull requests. When the user answers a document's
+questions, record the decisions in it in the same turn so it reads as concluded; a follow-up
+question restates the earlier exchange so it can be read on its own.
+
 hoop keeps a document only while it is under review. When the approved text should last, the
 document asks where it goes (a file in this project, a Google Doc, or nowhere), and you save it
 there after approval with `hoop export`.
@@ -53,6 +58,9 @@ test tools need, browsers for UI tests, and the CLI tools scripts call (`gh`, `t
 - Group the lines into pull requests with `/devloop:slice`.
 - Note whether the change adds a server, web UI, external input, auth, or file paths built from
   input; if so, the security gate in step 7 applies to every slice.
+- A check that blocks, warns or flags real behaviour (a gate, a lint rule, a heuristic) is replayed
+  on recorded real data before it is built. It ships only if it catches real cases and flags
+  nothing wrongly.
 - Submit the plan and the slice map to hoop together, and start only after the user approves.
 
 ## 4. Branch and baseline
@@ -63,7 +71,8 @@ git switch -c <type>/<slug> origin/main    # e.g. feat/cancel-unpaid-orders
 ```
 
 Never commit on `main`. Before every commit, check `git branch --show-current`. Run the full test
-suite before changing anything. If it already fails, stop and tell the user.
+suite before changing anything. If it already fails, stop and tell the user. If `main`'s CI is
+red, fixing it comes first; check open PRs for the same fix before writing one.
 
 ## 5. Contract first
 
@@ -75,7 +84,8 @@ show the user the contract diff in hoop and wait for approval before implementin
 
 Write the smallest code that makes the tests pass, one plan line at a time. Write comments by
 `/devloop:code-docs`. Commit per plan line; every commit builds and passes tests. Write multi-line
-commit messages to a file and use `git commit -F`. After each slice, give the user a one-line
+commit messages to a file and use `git commit -F`. Resolve a conflict in a generated file by taking `main`'s version and
+regenerating it, never by hand. After each slice, give the user a one-line
 status (slice n/m, tests, what's next).
 
 **Every defect gets a regression test.** Whether a review, a test or the user found it: first write
@@ -110,7 +120,7 @@ leftovers, a requirement without a test, comments that narrate history. Fix befo
 1. Run `/devloop:readme-check` against the branch's commits.
 2. `git push -u origin <branch>`, then `gh pr create --draft` with what and why, the requirements
    covered, how to verify, risk and rollback, and the checks (tests, size, README check).
-3. When CI passes, `gh pr ready`.
+3. Keep it a draft until the review's findings are fixed (step 10): a ready PR invites merging.
 
 ## 10. Code review
 

@@ -19,10 +19,11 @@ The reviewer knows nothing else, so the PR must carry the context:
   changes called out at the top, what is deliberately left for later slices. Fix them with
   `gh pr edit <pr> --title ... --body-file ...`.
 
-## 2. Mark it ready
+## 2. Keep it a draft until the findings are fixed
 
-Once CI passes (`gh pr checks <pr> --watch`), `gh pr ready <pr>`. Anthropic's `code-review` plugin
-skips draft PRs.
+A ready PR invites merging, so mark it ready (`gh pr ready <pr>`) only once CI passes and every
+finding below is fixed or answered. Anthropic's `code-review` plugin skips draft PRs: review a draft
+with the built-in `/code-review <pr-number>` or a fresh subagent you brief yourself.
 
 ## 3. Start the review
 
@@ -61,8 +62,9 @@ errors and posted no new comment, the review is clean.
   reason it stays as is. Don't silently drop a finding.
 - Every fixed defect comes with a regression test that fails without the fix and passes with it.
   A finding about a missing test is fixed by adding that test.
-- If the fixes go beyond small, local changes, review again with the built-in
-  `/code-review <pr-number> --comment` (the plugin skips PRs it already reviewed).
+- If the fixes go beyond small, local changes, or rewrite the core logic, review again with the
+  built-in `/code-review <pr-number> --comment` or a fresh subagent (the plugin skips PRs it already
+  reviewed). For a check or gate, the re-review replays it on real data.
 - If a fix changes what gets built, it goes through scope's change control.
 
 ## 6. Reviewing a whole stack
