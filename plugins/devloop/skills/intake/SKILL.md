@@ -13,6 +13,19 @@ Run intake for every distinct request, including feedback the user gives in pass
 review page, and defects Claude notices itself (a flaky test, a bug found in review). Several asks in
 one message are several intakes.
 
+## Run it in the intake agent
+
+Intake always runs in the `devloop:intake` agent, never inline: a session busy with other work drops
+requests it means to file later. Unless you are that agent, launch it in the background as soon as
+the request arrives, one agent per message, and carry on with your work:
+
+- Pass the person's words verbatim, and anything you already verified (with where in the code), so
+  it checks instead of redoing it.
+- Don't run the steps below yourself, and don't file the same request while the agent runs.
+- When it reports, relay the issues it filed or updated to the person.
+
+The agent follows the steps below.
+
 ## 1. Research the system as it is now
 
 - Find where the behaviour lives today: read the code, and run or open it where that's cheap.
@@ -25,12 +38,13 @@ one message are several intakes.
 - Gather the evidence: the user's own words, where they saw it (page, review, command), when, and
   any error text.
 
-## 2. Reconcile with every related issue
+## 2. Reconcile with every active request
 
-Search open issues and recently closed ones by symptom, not by the user's wording: the behaviour,
-the page or command, the error text, and a few word variants (`gh issue list --state all --search
-"<terms>"`). Read each candidate against the current code, not just its text: an old issue can be
-half done, obsolete, or wrong about how the system works now.
+Search open issues, open pull requests and recently closed issues by symptom, not by the user's
+wording: the behaviour, the page or command, the error text, and a few word variants (`gh issue list
+--state all --search "<terms>"`, `gh pr list --search "<terms>"`). An open pull request may already
+fix it, or change the code the request is about. Read each candidate against the current code, not
+just its text: an old issue can be half done, obsolete, or wrong about how the system works now.
 
 For each related issue, decide one outcome and say why:
 
