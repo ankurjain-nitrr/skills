@@ -77,12 +77,16 @@ gh issue edit <n> --parent <m>           # a part of a larger issue
 - **Title:** names the behaviour precisely enough that anyone can tell when it's fixed ("The check
   icon in Notify me sits off its label", not "Notify me broken").
 - **Body**, written for the person deciding, with no implementation plan beyond where the problem
-  lives:
-  - **Problem:** what happens, quoting the user.
-  - **Evidence:** where and when, and the verification result.
-  - **Ask:** the behaviour wanted.
+  lives. It describes only this product's behaviour: never name or link other products or tools,
+  even when research compared them.
+  - **Current behaviour:** what happens today, quoting the user, with where and when and the
+    verification result.
+  - **Expected behaviour:** the behaviour wanted.
   - **Done when:** acceptance a test can check.
   - **Order:** related issues and where this one fits.
+- **Few open enhancements:** keep one enhancement per area of the product, and fold a new ask into
+  that area's issue as a checklist item instead of filing another. Before filing a new area, check
+  the repo's cap on open enhancements (five when it states none) and aggregate to stay under it.
 - File it with `gh issue create`, or the repo's issue template, and add the relationships from step 3.
 
 ## 5. Report and stop
