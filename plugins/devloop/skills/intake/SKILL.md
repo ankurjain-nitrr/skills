@@ -16,10 +16,10 @@ in one message are several intakes.
 ## Run it in the intake agent
 
 Intake runs in the `devloop:intake` agent, not inline, unless it can't be launched (see below): a
-session busy with other work drops requests it means to file later. Unless you are that agent, launch it in the background as soon as
-the request arrives, one agent per message covering each request in it, and carry on with your work.
-A request that arrives while other work is being built stays out of that work unless the user says
-to fold it in.
+session busy with other work drops requests it means to file later. Unless you are that agent,
+launch it in the background as soon as the request arrives, one agent per message covering each
+request in it, and carry on with your work. A request that arrives while other work is being built
+stays out of that work unless the user says to fold it in.
 
 - Pass the person's words verbatim, and anything you already verified (with where in the code), so
   it checks instead of redoing it. Name any intake agent still running, so they don't file twice.
