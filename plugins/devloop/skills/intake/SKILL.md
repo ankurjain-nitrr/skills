@@ -1,6 +1,6 @@
 ---
 name: intake
-description: Captures a request as GitHub bug or enhancement issues reconciled with the existing backlog and ordered for building, instead of building it. Use whenever the user asks for a feature, reports a bug, gives product or UI feedback in passing ("the tick isn't aligned", "names should look different"), or says "capture this", "file an issue" or "add to the backlog", and for defects Claude finds itself. Not for building the change; that's scope.
+description: Captures a request as GitHub bug or enhancement issues reconciled with the existing backlog and ordered for building, instead of building it. Use whenever the user asks for a feature, reports a bug, gives product or UI feedback in passing ("the tick isn't aligned", "names should look different"), or says "capture this", "file an issue" or "add to the backlog", and for defects Claude finds itself; it runs in a background agent. Not for building the change; that's scope.
 ---
 
 # Intake
@@ -10,8 +10,25 @@ is built here: when the user asks to build, continue with `/devloop:scope` from 
 `CLAUDE.md`, issue templates and labels override anything below.
 
 Run intake for every distinct request, including feedback the user gives in passing, comments on a
-review page, and defects Claude notices itself (a flaky test, a bug found in review). Several asks in
-one message are several intakes.
+review page, and defects Claude notices itself (a flaky test, a bug found in review). Several asks
+in one message are several intakes.
+
+## Run it in the intake agent
+
+Intake runs in the `devloop:intake` agent, not inline, unless it can't be launched (see below): a
+session busy with other work drops requests it means to file later. Unless you are that agent,
+launch it in the background as soon as the request arrives, one agent per message covering each
+request in it, and carry on with your work. A request that arrives while other work is being built
+stays out of that work unless the user says to fold it in.
+
+- Pass the person's words verbatim, and anything you already verified (with where in the code), so
+  it checks instead of redoing it. Name any intake agent still running, so they don't file twice.
+- Don't run the steps below yourself, and don't file the same request while the agent runs.
+- When it reports, relay the issues it filed or updated to the person, and put each decision it
+  left for them to the person.
+
+If you can't launch it (you are a subagent, or the agent isn't installed), run the steps below
+yourself now, before going back to your work. The agent follows the steps below.
 
 ## 1. Research the system as it is now
 
@@ -25,18 +42,20 @@ one message are several intakes.
 - Gather the evidence: the user's own words, where they saw it (page, review, command), when, and
   any error text.
 
-## 2. Reconcile with every related issue
+## 2. Reconcile with every active request
 
-Search open issues and recently closed ones by symptom, not by the user's wording: the behaviour,
-the page or command, the error text, and a few word variants (`gh issue list --state all --search
-"<terms>"`). Read each candidate against the current code, not just its text: an old issue can be
-half done, obsolete, or wrong about how the system works now.
+Search open issues, open pull requests and recently closed issues by symptom, not by the user's
+wording: the behaviour, the page or command, the error text, and a few word variants (`gh issue list
+--state all --search "<terms>"`, `gh pr list --search "<terms>"`). An open pull request may already
+fix it, or change the code the request is about. Read each candidate against the current code, not
+just its text: an old issue can be half done, obsolete, or wrong about how the system works now.
 
 For each related issue, decide one outcome and say why:
 
 - **Same ask:** add the new case and evidence to it as a comment. Don't file a new issue.
 - **Changes the ask:** update that issue's scope or acceptance, and say what changed and why.
-- **Made obsolete:** say so on it, and close it, or ask the user if closing is their call.
+- **Made obsolete:** say so on it, and close it; if closing is the user's call, leave it open and
+  list it in your report as needing their decision.
 - **Duplicates of each other:** keep the older or better-discussed one, mark the other `duplicate`
   and close it with a link.
 - **Turned down before** (closed as won't do): report that instead of refiling, unless something has
@@ -59,22 +78,28 @@ gh issue edit <n> --parent <m>           # a part of a larger issue
 
 - **Label:** exactly one of `bug` (behaves differently from what was designed or promised) or
   `enhancement` (new or different behaviour), using the repo's own label names. When it's unclear,
-  decide from the evidence and say which you chose in one line, so the user can relabel.
+  decide from the evidence and say which you chose in your report, so the user can relabel.
 - **Title:** names the behaviour precisely enough that anyone can tell when it's fixed ("The check
   icon in Notify me sits off its label", not "Notify me broken").
 - **Body**, written for the person deciding, with no implementation plan beyond where the problem
-  lives:
-  - **Problem:** what happens, quoting the user.
-  - **Evidence:** where and when, and the verification result.
-  - **Ask:** the behaviour wanted.
+  lives. It describes only this product's behaviour: never name or link other products as
+  comparisons or models; when the user's words name one, describe the behaviour they meant instead.
+  The environment a bug needs to reproduce (browser, OS, runtime) is fine.
+  - **Current behaviour:** what happens today, quoting the user, with where and when and the
+    verification result.
+  - **Expected behaviour:** the behaviour wanted.
   - **Done when:** acceptance a test can check.
   - **Order:** related issues and where this one fits.
-- File it with `gh issue create`, or the repo's issue template, and add the relationships from step 3.
+- **Few open enhancements:** keep one enhancement per area of the product, and fold a new ask into
+  that area's issue as a checklist item instead of filing another. Give each item its own Done-when
+  line, and split it into a sub-issue (`--parent`) when it needs its own dependencies. Before filing
+  a new area, check the repo's cap on open enhancements (five when it states none) and aggregate to
+  stay under it.
+- Search again just before filing, since another intake may have filed it meanwhile. File it with
+  `gh issue create`, or the repo's issue template, and add the relationships from step 3.
 
 ## 5. Report and stop
 
-In chat, list what changed: issues filed, updated, merged or closed, each with its link, plus the
-order. Then stop. Don't start building unless the user asks.
-
-**Mid-build:** a request that arrives while other work is being built goes through intake and stays
-out of the current work, unless the user says to fold it in.
+Your final message lists every issue filed, updated, merged or closed, each with its link and label,
+the build order, and anything left for the user to decide, in under 300 words. When you are the
+agent, the session relays it. Then stop: don't start building.
