@@ -15,8 +15,8 @@ in one message are several intakes.
 
 ## Run it in the intake agent
 
-Intake always runs in the `devloop:intake` agent, never inline: a session busy with other work drops
-requests it means to file later. Unless you are that agent, launch it in the background as soon as
+Intake runs in the `devloop:intake` agent, not inline, unless it can't be launched (see below): a
+session busy with other work drops requests it means to file later. Unless you are that agent, launch it in the background as soon as
 the request arrives, one agent per message covering each request in it, and carry on with your work.
 A request that arrives while other work is being built stays out of that work unless the user says
 to fold it in.
@@ -101,5 +101,5 @@ gh issue edit <n> --parent <m>           # a part of a larger issue
 ## 5. Report and stop
 
 Your final message lists every issue filed, updated, merged or closed, each with its link and label,
-the build order, and anything left for the user to decide, in under 300 words. The session relays
-it. Then stop: don't start building.
+the build order, and anything left for the user to decide, in under 300 words. When you are the
+agent, the session relays it. Then stop: don't start building.
