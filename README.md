@@ -36,7 +36,7 @@ so install hoop first.
 | `update-stack` | `/update-stack:update-stack` | Updates every pinned version in a repo (dependencies, build plugins, wrappers, CI actions, container images, language runtime) to its latest stable release: inventories pins by scanning instead of a fixed list, checks registries for the latest stable, does major bumps one at a time after reading release notes, keeps each version identical everywhere, verifies build, tests and images, and commits by area. A repo's own update skill or `CLAUDE.md` overrides it. |
 | `create-skill` | `/create-skill:create-skill` | Creates or improves a skill: dedups against installed and popular skills, picks the cheapest home (skill, `CLAUDE.md` line, hook) and scope (project, personal, plugin), writes to the official authoring rules, agrees a reviewable design with you, tests triggering with a bundled headless script (near-misses and neighboring skills included) and behavior with and without the skill, reviews against a checklist, and packages and refreshes the local install. |
 | `devloop` | `/devloop:devloop` | Takes a change from request to small, tested pull requests: requirements and a plan the user approves in hoop, slices of at most 10 files and 500 lines, a regression test for every defect, code review and an acceptance run. |
-| `devloop` | `/devloop:intake` | Captures every request (feature, bug, feedback in passing) as GitHub issues reconciled with the existing backlog, in its own background agent so none is dropped: researched against the current code and open pull requests, merged into issues that already cover it, and linked in build order. Files, never builds. |
+| `devloop` | `/devloop:intake` | Files every request (feature, bug, feedback in passing) as GitHub issues, in a background agent so none is dropped: checked against the code, open issues and pull requests, merged into existing issues, linked in build order. Files, never builds. |
 | `devloop` | `/devloop:scope` | Agrees testable requirements with the user before planning, asking wide then narrow questions in hoop. |
 | `devloop` | `/devloop:slice` | Splits a change into small pull requests that each deliver working behavior, and keeps a stack moving. |
 | `devloop` | `/devloop:pr-review` | Gets a pull request reviewed with fresh context and resolves every finding. |
@@ -49,6 +49,7 @@ so install hoop first.
 .claude-plugin/marketplace.json     marketplace catalog
 plugins/<plugin>/.claude-plugin/plugin.json
 plugins/<plugin>/skills/<skill>/SKILL.md
+plugins/<plugin>/agents/<agent>.md
 ```
 
 Validate after changes: `claude plugin validate .`

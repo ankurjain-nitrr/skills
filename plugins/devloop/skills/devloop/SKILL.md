@@ -31,9 +31,10 @@ there after approval with `hoop export`.
 
 ## 0. Intake
 
-Every request first goes through `/devloop:intake`, in its own background agent: researched, reconciled with the existing
-issues, and filed or merged as bug or enhancement issues in build order. Nothing is built from a
-request the user hasn't asked to build; when they do, scope starts from its issue.
+Every request first goes through `/devloop:intake`, in its own background agent: researched,
+reconciled with the existing issues, and filed or merged as bug or enhancement issues in build
+order. Nothing is built from a request the user hasn't asked to build; when they do, scope starts
+from its issue.
 
 ## 1. Scope
 
